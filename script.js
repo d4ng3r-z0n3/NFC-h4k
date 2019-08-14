@@ -1,10 +1,10 @@
 const r = new NFCReader({ compatibility: 'any' });
-r.addEventListener('reading', event => {
+r.addEventListener('reading', ({message}) => {
   console.log(event);
-  pre.textContent += 'reading\n';
+  pre.textContent += `reading from ${event.serialNumber}\n`;
   
   
-  for (const record of event.message.records) {
+  for (const record of message.records) {
     switch (record.recordType) {
       case "text":
         pre.textContent += `Text: ${record.toText()}\n`;
