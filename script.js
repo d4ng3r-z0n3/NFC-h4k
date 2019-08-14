@@ -4,19 +4,20 @@ r.addEventListener('reading', event => {
   pre.textContent += 'reading\n';
   
   
-  for (let record of event.message.records) {
+  for (const record of event.message.records) {
     switch (record.recordType) {
       case "text":
         pre.textContent += `Text: ${record.toText()}\n`;
         break;
       case "url":
-        pre.textContent += `URL: ${record.toText()}\n`;
+        pre.textContent += `URL: ${record.data()}\n`;
+        // pre.textContent += `URL: ${record.toText()}\n`;
         break;
       case "json":
         pre.textContent += `JSON: ${JSON.stringify(record.toJSON())}\n`;
         break;
       case "opaque":
-        if (record.mediaType.startsWith('image/') {
+        if (record.mediaType.startsWith('image/')) {
           const blob = new Blob([record.toArrayBuffer()], {type: record.mediaType});
 
           const img = document.createElement("img");
@@ -26,7 +27,6 @@ r.addEventListener('reading', event => {
           document.body.appendChild(img);
         }
         break;
-      }
     }
   }
                    
