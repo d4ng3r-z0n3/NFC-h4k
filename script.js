@@ -57,21 +57,22 @@ abortButton.addEventListener('click', _ => {
   abortController.abort();
 });
 
+/* Write */
 
 writeButton.addEventListener('click', async _ => {
-  const w = new NFCWriter();
   pre.textContent += 'Writing...\n';
+  const w = new NFCWriter();
   try {
     await w.push({
-      url: "/custom/path",
+      url: "/some/path",
       records: [{
-        recordType: "text", data: 'Hello World'
+        recordType: "text", data: 'hey'
       }, {
-        recordType: "url", data: 'https://www.google.com'
+        recordType: "url", data: 'https://google.com'
       }, {
-        recordType: "json", data: {key1: 'v1', key2: 'v2'}, mediaType: "application/json",
+        recordType: "json", data: {key1: 'value1', key2: 'value2'}
       }]
-    });
+    }, { ignoreRead: false });
     pre.textContent += '> Written\n';
   } catch(e) {
     pre.textContent += `> ${e}\n`;
