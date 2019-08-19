@@ -11,7 +11,7 @@ r.addEventListener('reading', ({message}) => {
   pre.textContent += `> Records:\n`;
   
   if (message.records.length === 0) {
-    pre.textContent += `  > Empty tag\n`;
+    pre.textContent += `  > No WebNFC records\n`;
     return;
   }
   
