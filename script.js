@@ -2,19 +2,18 @@
 const r = new NFCReader({ compatibility: 'any' });
 r.addEventListener('reading', ({message}) => {
   console.log(event);
-  pre.textContent += `reading from ${event.serialNumber}\n`;
-  
+  pre.textContent += `> Reading from ${event.serialNumber}\n`;
   
   for (const record of message.records) {
     switch (record.recordType) {
       case "text":
-        pre.textContent += `Text: ${record.toText()}\n`;
+        pre.textContent += `> Text: ${record.toText()}\n`;
         break;
       case "url":
-        pre.textContent += `URL: ${record.toText()}\n`;
+        pre.textContent += `> URL: ${record.toText()}\n`;
         break;
       case "json":
-        pre.textContent += `JSON: ${JSON.stringify(record.toJSON())}\n`;
+        pre.textContent += `> JSON: ${JSON.stringify(record.toJSON())}\n`;
         break;
       case "opaque":
         if (record.mediaType.startsWith('image/')) {
@@ -32,15 +31,18 @@ r.addEventListener('reading', ({message}) => {
                    
 });
 r.addEventListener('error', event => {
-  console.log(event);
-  pre.textContent += event.error + '\n';
+  pre.textContent += 'Error: ' + event.error + '\n';
 });
 
 const abortController = new AbortController();
+abortController.signal.addEventListener('abort', _ => {
+  pre.textContent += '> Aborted\n';
+});
 
 r.start({ signal: abortController.signal });
-pre.textContent = 'scanning...\n';
+pre.textContent += 'Scanning...\n';
 
 abortButton.addEventListener('click', _ => {
-  controller.abort();
+  abortController.abort();
 });
+
