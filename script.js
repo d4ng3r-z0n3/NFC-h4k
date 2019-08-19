@@ -7,25 +7,27 @@ r.addEventListener('error', event => {
 
 r.addEventListener('reading', ({message}) => {
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
+  pre.textContent += `> URL: ${message.url}\n`;
+  pre.textContent += `> Records:\n`;
   
   if (message.records.length === 0) {
-    pre.textContent += `> Empty tag\n`;
+    pre.textContent += `  > Empty tag\n`;
     return;
   }
   
   for (const record of message.records) {
     switch (record.recordType) {
       case "empty":
-        pre.textContent += `> Empty record\n`;
+        pre.textContent += `  > Empty record\n`;
         break;
       case "text":
-        pre.textContent += `> Text: ${record.toText()}\n`;
+        pre.textContent += `  > Text: ${record.toText()}\n`;
         break;
       case "url":
-        pre.textContent += `> URL: ${record.toText()}\n`;
+        pre.textContent += `  > URL: ${record.toText()}\n`;
         break;
       case "json":
-        pre.textContent += `> JSON: ${JSON.stringify(record.toJSON())}\n`;
+        pre.textContent += `  > JSON: ${JSON.stringify(record.toJSON())}\n`;
         break;
       case "opaque":
         if (record.mediaType.startsWith('image/')) {
@@ -59,10 +61,20 @@ abortButton.addEventListener('click', _ => {
 writeButton.addEventListener('click', async _ => {
   const w = new NFCWriter();
   pre.textContent += 'Writing...\n';
-  await w.push({
-    url: "/custom/path",
-    records: [{ recordType: "text", data: 'Hello World' }]
-  });
-  pre.textContent += '> Written\n';
+  try {
+    await w.push({
+      url: "/custom/path",
+      records: [{
+        recordType: "text", data: 'Hello World'
+      }, {
+        // recordType: "url", data: 'https://www.google.com'
+      // }, {
+        recordType: "json", data: {key1: 'value1', key2: 'value2'}, mediaType: "application/json",
+      }]
+    });
+    pre.textContent += '> Written\n';
+  } catch(e) {
+    pre.textContent += `> ${e}\n`;
+  }
 });
 
