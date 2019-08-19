@@ -66,13 +66,13 @@ writeButton.addEventListener('click', async _ => {
     await w.push({
       url: "/some/path",
       records: [{
-        recordType: "text", data: 'hey'
+        recordType: "text", data: 'hello'
       }, {
         recordType: "url", data: 'https://google.com'
       }, {
-        recordType: "json", data: {key1: 'value1', key2: 'value2'}
+        recordType: "json", data: { key1: 'value1', key2: 'value2' }
       }]
-    }, { ignoreRead: false });
+    });
     pre.textContent += '> Written\n';
   } catch(e) {
     pre.textContent += `> ${e}\n`;
