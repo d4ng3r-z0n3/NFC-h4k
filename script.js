@@ -67,9 +67,9 @@ writeButton.addEventListener('click', async _ => {
       records: [{
         recordType: "text", data: 'Hello World'
       }, {
-        // recordType: "url", data: 'https://www.google.com'
-      // }, {
-        recordType: "json", data: {key1: 'value1', key2: 'value2'}, mediaType: "application/json",
+        recordType: "url", data: 'https://www.google.com'
+      }, {
+        recordType: "json", data: {key1: 'v1', key2: 'v2'}, mediaType: "application/json",
       }]
     });
     pre.textContent += '> Written\n';
