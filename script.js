@@ -1,3 +1,4 @@
+
 const r = new NFCReader({ compatibility: 'any' });
 r.addEventListener('reading', ({message}) => {
   console.log(event);
@@ -10,8 +11,7 @@ r.addEventListener('reading', ({message}) => {
         pre.textContent += `Text: ${record.toText()}\n`;
         break;
       case "url":
-        pre.textContent += `URL: ${record.data()}\n`;
-        // pre.textContent += `URL: ${record.toText()}\n`;
+        pre.textContent += `URL: ${record.toText()}\n`;
         break;
       case "json":
         pre.textContent += `JSON: ${JSON.stringify(record.toJSON())}\n`;
@@ -35,5 +35,12 @@ r.addEventListener('error', event => {
   console.log(event);
   pre.textContent += event.error + '\n';
 });
-r.start();
-pre.textContent = 'WebNFC - crbug.com/993327\n';
+
+const abortController = new AbortController();
+
+r.start({ signal: abortController.signal });
+pre.textContent = 'scanning...\n';
+
+abortButton.addEventListener('click', _ => {
+  controller.abort();
+});
