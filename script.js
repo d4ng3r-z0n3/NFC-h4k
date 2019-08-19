@@ -1,15 +1,23 @@
 
 const r = new NFCReader({ compatibility: 'any' });
+
+r.addEventListener('error', event => {
+  pre.textContent += 'Error: ' + event.error + '\n';
+});
+
 r.addEventListener('reading', ({message}) => {
-  console.log(event);
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
   
   if (message.records.length === 0) {
     pre.textContent += `> Empty tag\n`;
+    return;
   }
   
   for (const record of message.records) {
     switch (record.recordType) {
+      case "empty":
+        pre.textContent += `> Empty record\n`;
+        break;
       case "text":
         pre.textContent += `> Text: ${record.toText()}\n`;
         break;
@@ -34,9 +42,6 @@ r.addEventListener('reading', ({message}) => {
   }
                    
 });
-r.addEventListener('error', event => {
-  pre.textContent += 'Error: ' + event.error + '\n';
-});
 
 const abortController = new AbortController();
 abortController.signal.addEventListener('abort', _ => {
@@ -48,5 +53,16 @@ pre.textContent += 'Scanning...\n';
 
 abortButton.addEventListener('click', _ => {
   abortController.abort();
+});
+
+
+writeButton.addEventListener('click', async _ => {
+  const w = new NFCWriter();
+  pre.textContent += 'Writing...\n';
+  await w.push({
+    url: "/custom/path",
+    records: [{ recordType: "text", data: 'Hello World' }]
+  });
+  pre.textContent += '> Written\n';
 });
 
