@@ -4,6 +4,10 @@ r.addEventListener('reading', ({message}) => {
   console.log(event);
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
   
+  if (message.records.length === 0) {
+    pre.textContent += `> Empty tag\n`;
+  }
+  
   for (const record of message.records) {
     switch (record.recordType) {
       case "text":
