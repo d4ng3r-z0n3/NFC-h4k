@@ -14,6 +14,12 @@
       Abort scan
     </button>
     <pre id="pre"></pre>
-    <script src="script.js"></script>
+    <script>
+      if ('NFCReader' in window) {
+        import("/script.js");
+      } else {
+        pre.textContent = 'No WebNFC support!\n';
+      }
+    </script>
   </body>
 </html>

@@ -1,4 +1,3 @@
-
 const r = new NFCReader({ compatibility: 'any' });
 
 r.addEventListener('error', event => {
