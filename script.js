@@ -4,7 +4,7 @@ r.addEventListener('error', event => {
   pre.textContent += 'Error: ' + event.error + '\n';
 });
 
-r.addEventListener('reading', ({message}) => {
+const onReading = ({ message }) => {
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records:\n`;
@@ -40,9 +40,14 @@ r.addEventListener('reading', ({message}) => {
         }
         break;
     }
-  }
-                   
-});
+  }                 
+};
+
+r.onreading = readingInput.checked ? onReading : null;
+
+readingInput.onchanged = _ => {
+  
+}
 
 const abortController = new AbortController();
 abortController.signal.addEventListener('abort', _ => {

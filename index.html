@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>  
+  </head>
   <body>
     <h1>
        WebNFC
@@ -13,6 +13,10 @@
     <button id="abortButton">
       Abort scan
     </button>
+    <label>
+      <input id="readingInput" type="checkbox" checked/>
+      reading
+    </label>
     <pre id="pre"></pre>
     <script>
       if ('NFCReader' in window) {
