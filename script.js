@@ -1,8 +1,9 @@
-const r = new NFCReader({ compatibility: 'any' });
+// const r = new NFCReader({ compatibility: 'any' });
+const r = new NFCReader();
 
-r.addEventListener('error', event => {
+r.onerror = event => {
   pre.textContent += 'Error: ' + event.error + '\n';
-});
+};
 
 const onReading = ({ message }) => {
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
@@ -44,7 +45,6 @@ const onReading = ({ message }) => {
 };
 
 const onReadingInputChange = _ => {
-  console.log('readingInput.checked', readingInput.checked )
   r.onreading = readingInput.checked ? onReading : null;
 }
 
