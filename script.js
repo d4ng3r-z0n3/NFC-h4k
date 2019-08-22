@@ -1,5 +1,5 @@
 // const r = new NFCReader({ compatibility: 'any' });
-const r = new NFCReader();
+const r = new NFCReader({ compatibility: 'nfc-forum' });
 
 r.onerror = event => {
   pre.textContent += 'Error: ' + event.error + '\n';

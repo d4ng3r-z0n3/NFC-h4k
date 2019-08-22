@@ -20,7 +20,9 @@
     <iframe src="iframe.html" style="display:block; height: 64px; margin-top: 12px"></iframe>
     <pre id="pre" style="overflow: auto; padding: 0 0 12px 12px"></pre>
     <script>
-      if ('NFCReader' in window) {
+      if ('NFCReader' in window) 
+        const url = new URL(location);
+        const compatibility = location.hash
         import("/script.js");
       } else {
         pre.textContent = 'No WebNFC support!\n';
