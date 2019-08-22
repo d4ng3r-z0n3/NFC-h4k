@@ -63,7 +63,7 @@ abortController.signal.addEventListener('abort', _ => {
 });
 
 r.start({ signal: abortController.signal });
-pre.textContent += `Scanning "${compatibility}" technology...\n`;
+pre.textContent += `Scanning "${compatibility}" compatible technology...\n`;
 
 abortButton.addEventListener('click', _ => {
   abortController.abort();
