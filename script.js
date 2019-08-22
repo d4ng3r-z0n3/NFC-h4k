@@ -1,5 +1,11 @@
-// const r = new NFCReader({ compatibility: 'any' });
-const r = new NFCReader({ compatibility: 'nfc-forum' });
+const url = new URL(location);
+const compatibility = url.searchParams.get('compatibility') || 'any';
+let r;
+try {
+  r = new NFCReader({ compatibility });
+} catch(error) {
+  pre.textContent += `Error: ${error}\n`;
+}
 
 r.onerror = event => {
   pre.textContent += 'Error: ' + event.error + '\n';
@@ -57,7 +63,7 @@ abortController.signal.addEventListener('abort', _ => {
 });
 
 r.start({ signal: abortController.signal });
-pre.textContent += 'Scanning...\n';
+pre.textContent += 'Scanning ...\n';
 
 abortButton.addEventListener('click', _ => {
   abortController.abort();
@@ -84,4 +90,3 @@ writeButton.addEventListener('click', async _ => {
     pre.textContent += `> ${e}\n`;
   }
 });
-
