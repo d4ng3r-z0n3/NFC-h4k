@@ -43,11 +43,13 @@ const onReading = ({ message }) => {
   }                 
 };
 
-r.onreading = readingInput.checked ? onReading : null;
-
-readingInput.onchanged = _ => {
-  
+const onReadingInputChange = _ => {
+  console.log('readingInput.checked', readingInput.checked )
+  r.onreading = readingInput.checked ? onReading : null;
 }
+
+readingInput.onchange = onReadingInputChange;
+onReadingInputChange();
 
 const abortController = new AbortController();
 abortController.signal.addEventListener('abort', _ => {
