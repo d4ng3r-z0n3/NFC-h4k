@@ -1,11 +1,8 @@
-const url = new URL(location);
-const compatibility = url.searchParams.get('compatibility') || 'any';
-let r;
-try {
-  r = new NFCReader({ compatibility });
-} catch(error) {
+if (!NFCReader) {
   pre.textContent += `Error: ${error}\n`;
-}
+}  
+
+const r = new NFCReader();
 
 r.onerror = event => {
   pre.textContent += 'Error: ' + event.error + '\n';
@@ -62,8 +59,8 @@ abortController.signal.addEventListener('abort', _ => {
   pre.textContent += '> Aborted\n';
 });
 
-r.start({ signal: abortController.signal });
-pre.textContent += `Scanning "${compatibility}" compatible technology...\n`;
+r.scan({ signal: abortController.signal });
+pre.textContent += `Scanning...\n`;
 
 abortButton.addEventListener('click', _ => {
   abortController.abort();
