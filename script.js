@@ -2,13 +2,13 @@ if (!NFCReader) {
   pre.textContent += `Error: ${error}\n`;
 }  
 
-const audio = document.createElement('audio');
-audio.src = 'https://airhorner.com/sounds/airhorn.mp3';
+// const audio = document.createElement('audio');
+// audio.src = 'https://airhorner.com/sounds/airhorn.mp3';
 
-function playSound() {
-  audio.currentTime = 0;
-  audio.play();
-}
+// function playSound() {
+//   audio.currentTime = 0;
+//   audio.play();
+// }
 
 const r = new NFCReader();
 
@@ -17,7 +17,7 @@ r.onerror = event => {
 };
 
 const onReading = ({ message }) => {
-  playSound();
+  // playSound();
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records:\n`;
