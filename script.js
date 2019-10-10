@@ -18,7 +18,7 @@ r.onerror = event => {
 
 const onReading = ({ message }) => {
   // playSound();
-  pre.textContent += `> Reading from ${event.serialNumber}\n`;
+  pre.textContent += `> Reading message from ${event.serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records:\n`;
 
