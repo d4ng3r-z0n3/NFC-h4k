@@ -92,11 +92,6 @@ writeButton.addEventListener("click", async _ => {
         {
           recordType: "url",
           data: "https://google.com"
-        },
-        {
-          recordType: "json",
-          mediaType: "application/json",
-          data: { key1: "value1", key2: "value2" }
         }
       ]
     });
