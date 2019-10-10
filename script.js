@@ -81,16 +81,7 @@ writeButton.addEventListener('click', async _ => {
   pre.textContent += 'Writing...\n';
   const w = new NFCWriter();
   try {
-    await w.push({
-      url: "/some/path",
-      records: [{
-        recordType: "text", data: 'hello'
-      }, {
-        recordType: "url", data: 'https://google.com'
-      }, {
-        recordType: "json", data: { key1: 'value1', key2: 'value2' }
-      }]
-    });
+    await w.push('lol');
     pre.textContent += '> Written\n';
   } catch(e) {
     pre.textContent += `> ${e}\n`;
