@@ -6,6 +6,9 @@ const audio = document.createElement("audio");
 audio.src = "https://airhorner.com/sounds/airhorn.mp3";
 
 function playSound() {
+  if (!soundInput.checked) {
+    return;
+  }
   audio.currentTime = 0;
   audio.play();
 }
@@ -17,7 +20,7 @@ r.onerror = ({ error }) => {
 };
 
 const onReading = ({ message, serialNumber }) => {
-  // playSound();
+  playSound();
   pre.textContent += `> Serial Number: ${serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records: (${message.records.length})\n`;
