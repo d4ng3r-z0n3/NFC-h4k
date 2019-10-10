@@ -17,7 +17,7 @@ r.onerror = ({ error }) => {
 };
 
 const onReading = ({ message, serialNumber }) => {
-  // playSound(); 
+  // playSound();
   pre.textContent += `> Serial Number: ${serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records: (${message.records.length})\n`;
@@ -79,7 +79,7 @@ writeButton.addEventListener("click", async _ => {
           data: "https://google.com"
         },
         {
-          id: "2",
+          id: "3",
           recordType: "json",
           mediaType: "application/json",
           data: { key1: "value1", key2: "value2" }
