@@ -2,13 +2,13 @@ if (!NFCReader) {
   pre.textContent += `Error: ${error}\n`;
 }
 
-// const audio = document.createElement('audio');
-// audio.src = 'https://airhorner.com/sounds/airhorn.mp3';
+const audio = document.createElement("audio");
+audio.src = "https://airhorner.com/sounds/airhorn.mp3";
 
-// function playSound() {
-//   audio.currentTime = 0;
-//   audio.play();
-// }
+function playSound() {
+  audio.currentTime = 0;
+  audio.play();
+}
 
 const r = new NFCReader();
 
@@ -17,7 +17,7 @@ r.onerror = event => {
 };
 
 const onReading = ({ message }) => {
-  // playSound();
+  playSound();
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records:\n`;
@@ -28,6 +28,7 @@ const onReading = ({ message }) => {
   }
 
   for (const record of message.records) {
+    pre.textContent += `  > ${JSON.stringify(record)}\n`;
     switch (record.recordType) {
       case "empty":
         pre.textContent += `  > Empty record\n`;
@@ -92,7 +93,7 @@ writeButton.addEventListener("click", async _ => {
         },
         {
           recordType: "url",
-          // mediaType: "text/plain",
+          mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
           data: "https://google.com"
         },
         {
