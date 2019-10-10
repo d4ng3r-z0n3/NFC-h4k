@@ -17,10 +17,10 @@ r.onerror = ({ error }) => {
 };
 
 const onReading = ({ message, serialNumber }) => {
-  // playSound();
+  // playSound(); 
   pre.textContent += `> Serial Number: ${serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
-  pre.textContent += `> Records:\n`;
+  pre.textContent += `> Records: (${message.records.length})\n`;
 
   if (message.records.length === 0) {
     pre.textContent += `  > No WebNFC records\n`;
@@ -28,7 +28,6 @@ const onReading = ({ message, serialNumber }) => {
   }
 
   for (const record of message.records) {
-    pre.textContent += `\n`;
     pre.textContent += `  > recordType: ${record.recordType}\n`;
     pre.textContent += `  > mediaType: ${record.mediaType}\n`;
     pre.textContent += `  > id: ${record.id}\n`;
@@ -36,8 +35,8 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
     pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
+    pre.textContent += `  - - - - - - - \n`;
   }
-  pre.textContent += `\n`;
 };
 
 const onReadingInputChange = _ => {
