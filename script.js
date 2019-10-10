@@ -12,13 +12,13 @@ function playSound() {
 
 const r = new NFCReader();
 
-r.onerror = event => {
-  pre.textContent += "Error: " + event.error + "\n";
+r.onerror = ({ error }) => {
+  pre.textContent += "Error: " + error + "\n";
 };
 
-const onReading = ({ message }) => {
+const onReading = ({ message, serialNumber }) => {
   // playSound();
-  pre.textContent += `> Reading message from ${event.serialNumber}\n`;
+  pre.textContent += `> Serial Number: ${serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records:\n`;
 
@@ -35,6 +35,7 @@ const onReading = ({ message }) => {
     pre.textContent += `  > toText(): ${record.toText()}\n`;
     pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
     pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
+    //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
   }
   pre.textContent += `\n`;
 };
