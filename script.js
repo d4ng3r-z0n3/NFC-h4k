@@ -82,6 +82,7 @@ abortButton.addEventListener("click", _ => {
 writeButton.addEventListener("click", async _ => {
   pre.textContent += "Writing...\n";
   const w = new NFCWriter();
+
   try {
     await w.push({
       records: [
@@ -91,7 +92,13 @@ writeButton.addEventListener("click", async _ => {
         },
         {
           recordType: "url",
+          // mediaType: "text/plain",
           data: "https://google.com"
+        },
+        {
+          recordType: "json",
+          mediaType: "application/json",
+          data: { key1: "value1", key2: "value2" }
         }
       ]
     });
