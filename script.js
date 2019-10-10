@@ -17,7 +17,7 @@ r.onerror = event => {
 };
 
 const onReading = ({ message }) => {
-  playSound();
+  // playSound();
   pre.textContent += `> Reading from ${event.serialNumber}\n`;
   pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records:\n`;
@@ -28,35 +28,15 @@ const onReading = ({ message }) => {
   }
 
   for (const record of message.records) {
-    pre.textContent += `  > ${JSON.stringify(record)}\n`;
-    switch (record.recordType) {
-      case "empty":
-        pre.textContent += `  > Empty record\n`;
-        break;
-      case "text":
-        pre.textContent += `  > Text: ${record.toText()}\n`;
-        break;
-      case "url":
-        pre.textContent += `  > URL: ${record.toText()}\n`;
-        break;
-      case "json":
-        pre.textContent += `  > JSON: ${JSON.stringify(record.toJSON())}\n`;
-        break;
-      case "opaque":
-        if (record.mediaType.startsWith("image/")) {
-          const blob = new Blob([record.toArrayBuffer()], {
-            type: record.mediaType
-          });
-
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(blob);
-          img.onload = () => window.URL.revokeObjectURL(this.src);
-
-          document.body.appendChild(img);
-        }
-        break;
-    }
+    pre.textContent += `\n`;
+    pre.textContent += `  > recordType: ${record.recordType}\n`;
+    pre.textContent += `  > mediaType: ${record.mediaType}\n`;
+    pre.textContent += `  > id: ${record.id}\n`;
+    pre.textContent += `  > toText(): ${record.toText()}\n`;
+    pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
+    pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
   }
+  pre.textContent += `\n`;
 };
 
 const onReadingInputChange = _ => {
@@ -88,15 +68,18 @@ writeButton.addEventListener("click", async _ => {
     await w.push({
       records: [
         {
+          id: "1",
           recordType: "text",
           data: "hello"
         },
         {
+          id: "2",
           recordType: "url",
           mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
           data: "https://google.com"
         },
         {
+          id: "2",
           recordType: "json",
           mediaType: "application/json",
           data: { key1: "value1", key2: "value2" }
