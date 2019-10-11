@@ -98,22 +98,16 @@ writeButton.addEventListener("click", async _ => {
     //   ]
     // });
 
-    const canvas = document.createElement("canvas");
-    canvas.width = 10;
-    canvas.height = 10;
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(0, 0, 10, 10);
-    var imageData = ctx.getImageData(0, 0, 10, 10);
-    const blob = await canvas.toBlob();
+    const response = await fetch('assets/alien.png');
+    const arrayBuffer = await response.arrayBuffer();
 
     await w.push({
       records: [
         {
           id: "1",
           recordType: "opaque",
-          mediaType: "image/png",
-          data: blob
+          mediaType: "application/octet-stream",
+          data: arrayBuffer
         }
       ]
     });      
