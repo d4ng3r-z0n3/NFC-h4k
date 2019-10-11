@@ -37,16 +37,20 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > toText(): ${record.toText()}\n`;
     try {
       pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
-    } catch(e) {
+    } catch (e) {
       pre.textContent += `  ! toJSON(): ${e}\n`;
     }
-    pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
-    // Try to show an image
-    if (record.mediaType.startsWith('image/')) {
-    const blob = new Blob([record.toArrayBuffer()], {type: record.mediaType});
-    const img = document.createElement("img");
-    img.src = URL.createObjectURL(blob);
-    document.body.appendChild(img);
+    if (record.recordType != "opaque") {
+      pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
+    } else {
+      pre.textContent += `  > toArrayBuffer():\n`;
+      // Try to show an image
+      const blob = new Blob([record.toArrayBuffer()], {
+        type: record.mediaType
+      });
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(blob);
+      document.body.appendChild(img);
     }
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
     pre.textContent += `  - - - - - - - \n`;
@@ -98,7 +102,7 @@ writeButton.addEventListener("click", async _ => {
     //   ]
     // });
 
-    const response = await fetch('assets/alien.png');
+    const response = await fetch("https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png");
     const arrayBuffer = await response.arrayBuffer();
 
     await w.push({
@@ -110,7 +114,7 @@ writeButton.addEventListener("click", async _ => {
           data: arrayBuffer
         }
       ]
-    });      
+    });
 
     //     await w.push({
     //       records: [
