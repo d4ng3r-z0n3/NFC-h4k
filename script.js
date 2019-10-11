@@ -34,7 +34,7 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > recordType: ${record.recordType}\n`;
     pre.textContent += `  > mediaType: ${record.mediaType}\n`;
     pre.textContent += `  > id: ${record.id}\n`;
-    pre.textContent += `  > toText(): ${record.toText()}\n`;
+    pre.textContent += `  > toText(): ${record.toText().replace(/[\r\n]/g, "")}\n`;
     try {
       pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
     } catch (e) {
@@ -83,9 +83,13 @@ writeButton.addEventListener("click", async _ => {
   const w = new NFCWriter();
 
   try {
+    // DOMString text
     // await w.push('DOMString');
+    
+    // DOMString json
     // await w.push(JSON.stringify({key1: 'value1'}));
 
+    // NDEFMessageInit text + json
     // await w.push({
     //   records: [
     //     {
@@ -102,41 +106,48 @@ writeButton.addEventListener("click", async _ => {
     //   ]
     // });
 
+    // NDEFMessgeInit arrayBuffer
     const response = await fetch("https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png");
     const arrayBuffer = await response.arrayBuffer();
+    // await w.push({
+    //   records: [
+    //     {
+    //       id: "1",
+    //       recordType: "opaque",
+    //       mediaType: "application/octet-stream",
+    //       data: arrayBuffer
+    //     }
+    //   ]
+    // });
+    // await w.push(arrayBuffer);
 
     await w.push({
       records: [
         {
           id: "1",
+          recordType: "text",
+          data: "hello"
+        },
+        {
+          id: "2",
+          recordType: "url",
+          mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
+          data: "https://google.com"
+        },
+        {
+          id: "3",
+          recordType: "json",
+          mediaType: "application/json",
+          data: { key1: "value1", key2: "value2" }
+        },
+        {
+          id: "4",
           recordType: "opaque",
           mediaType: "application/octet-stream",
           data: arrayBuffer
         }
       ]
     });
-
-    //     await w.push({
-    //       records: [
-    //         {
-    //           id: "1",
-    //           recordType: "text",
-    //           data: "hello"
-    //         },
-    //         {
-    //           id: "2",
-    //           recordType: "url",
-    //           mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
-    //           data: "https://google.com"
-    //         },
-    //         {
-    //           id: "3",
-    //           recordType: "json",
-    //           mediaType: "application/json",
-    //           data: { key1: "value1", key2: "value2" }
-    //         }
-    //       ]
-    //     });
     pre.textContent += "> Written\n";
   } catch (e) {
     pre.textContent += `> ${e}\n`;
