@@ -35,8 +35,21 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > mediaType: ${record.mediaType}\n`;
     pre.textContent += `  > id: ${record.id}\n`;
     pre.textContent += `  > toText(): ${record.toText()}\n`;
-    pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
+    try {
+      pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
+    } catch (e) {
+      pre.textContent += `  ! toJSON(): ${e}\n`;
+    }
     pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
+    // Try to show an image
+    if (record.mediaType.startsWith("image/")) {
+      const blob = new Blob([record.toArrayBuffer()], {
+        type: record.mediaType
+      });
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(blob);
+      document.body.appendChild(img);
+    }
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
     pre.textContent += `  - - - - - - - \n`;
   }
