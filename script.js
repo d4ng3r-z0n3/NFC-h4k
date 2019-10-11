@@ -68,27 +68,55 @@ writeButton.addEventListener("click", async _ => {
   const w = new NFCWriter();
 
   try {
-    await w.push({
-      records: [
-        {
-          id: "1",
-          recordType: "text",
-          data: "hello"
-        },
-        {
-          id: "2",
-          recordType: "url",
-          mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
-          data: "https://google.com"
-        },
-        {
-          id: "3",
-          recordType: "json",
-          mediaType: "application/json",
-          data: { key1: "value1", key2: "value2" }
-        }
-      ]
-    });
+    // await w.push('DOMString');
+    // await w.push(JSON.stringify({key1: 'value1'}));
+
+    // await w.push({
+    //   records: [
+    //     {
+    //       id: "1",
+    //       recordType: "text",
+    //       data: JSON.stringify({ key1: "value1" })
+    //     },
+    //     {
+    //       id: "2",
+    //       recordType: "json",
+    //       mediaType: "application/json",
+    //       data: { key1: "value1" }
+    //     }
+    //   ]
+    // });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 10;
+    canvas.height = 10;
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(0, 0, 10, 10);
+    var imageData = ctx.getImageData(0, 0, 10, 10);
+    await w.push(imageData.data.buffer);
+
+    //     await w.push({
+    //       records: [
+    //         {
+    //           id: "1",
+    //           recordType: "text",
+    //           data: "hello"
+    //         },
+    //         {
+    //           id: "2",
+    //           recordType: "url",
+    //           mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
+    //           data: "https://google.com"
+    //         },
+    //         {
+    //           id: "3",
+    //           recordType: "json",
+    //           mediaType: "application/json",
+    //           data: { key1: "value1", key2: "value2" }
+    //         }
+    //       ]
+    //     });
     pre.textContent += "> Written\n";
   } catch (e) {
     pre.textContent += `> ${e}\n`;
