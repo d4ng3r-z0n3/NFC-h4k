@@ -37,18 +37,16 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > toText(): ${record.toText()}\n`;
     try {
       pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
-    } catch (e) {
+    } catch(e) {
       pre.textContent += `  ! toJSON(): ${e}\n`;
     }
     pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
     // Try to show an image
-    if (record.mediaType.startsWith("image/")) {
-      const blob = new Blob([record.toArrayBuffer()], {
-        type: record.mediaType
-      });
-      const img = document.createElement("img");
-      img.src = URL.createObjectURL(blob);
-      document.body.appendChild(img);
+    if (record.mediaType.startsWith('image/')) {
+    const blob = new Blob([record.toArrayBuffer()], {type: record.mediaType});
+    const img = document.createElement("img");
+    img.src = URL.createObjectURL(blob);
+    document.body.appendChild(img);
     }
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
     pre.textContent += `  - - - - - - - \n`;
@@ -107,7 +105,18 @@ writeButton.addEventListener("click", async _ => {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(0, 0, 10, 10);
     var imageData = ctx.getImageData(0, 0, 10, 10);
-    await w.push(imageData.data.buffer);
+    const blob = await canvas.toBlob();
+
+    await w.push({
+      records: [
+        {
+          id: "1",
+          recordType: "opaque",
+          mediaType: "image/png",
+          data: blob
+        }
+      ]
+    });      
 
     //     await w.push({
     //       records: [
