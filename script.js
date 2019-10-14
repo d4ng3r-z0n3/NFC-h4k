@@ -152,7 +152,7 @@ writeButton.addEventListener("click", async _ => {
           id: "5",
           recordType: "android.com:pkg",
           mediaType: "application/octet-stream",
-          data: (new TextEncoder().encode("com.android.chrome")).buffer
+          data: (new TextEncoder().encode("org.chromium.webapk.ace0b15a6ce931426")).buffer
         }
       ]
     });
