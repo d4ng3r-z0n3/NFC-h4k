@@ -42,19 +42,10 @@ const onReading = ({ message, serialNumber }) => {
     } catch (e) {
       pre.textContent += `  ! toJSON(): ${e}\n`;
     }
-    if (record.recordType != "opaque") {
-      const arrayBuffer = record.toArrayBuffer();
-      if (arrayBuffer) {
-        console.log(arrayBuffer);
-        let a = [];
-        for (let i = 0; i < arrayBuffer.byteLength; i++) {
-          a.push("0x" + ("00" + arrayBuffer.getUint8(i).toString(16)).slice(-2));
-        }
-        pre.textContent += `  > toArrayBuffer(): ${a.join(" ")}\n`;
-      } else {
-        pre.textContent += `  > toArrayBuffer(): ${arrayBuffer}\n`;
-      }
-    } else {
+    const arrayBuffer = record.toArrayBuffer();
+    if (!arrayBuffer) {
+      pre.textContent += `  > toArrayBuffer(): ${arrayBuffer}\n`;
+    } else if (record.recordType == "opaque") {
       pre.textContent += `  > toArrayBuffer():\n`;
       // Try to show an image
       const blob = new Blob([record.toArrayBuffer()], {
@@ -63,6 +54,13 @@ const onReading = ({ message, serialNumber }) => {
       const img = document.createElement("img");
       img.src = URL.createObjectURL(blob);
       document.body.appendChild(img);
+    } else {
+      let a = [];
+      const dataView = new DataView(arrayBuffer);
+      for (let i = 0; i < arrayBuffer.byteLength; i++) {
+        a.push("0x" + ("00" + dataView.getUint8(i).toString(16)).slice(-2));
+      }
+      pre.textContent += `  > toArrayBuffer(): ${a.join(" ")}\n`;
     }
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
     pre.textContent += `  - - - - - - - \n`;
