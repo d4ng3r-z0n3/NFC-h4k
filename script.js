@@ -144,7 +144,6 @@ writeButton.addEventListener("click", async _ => {
         {
           id: "2",
           recordType: "url",
-          // mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
           data: "https://google.com"
         },
         {
