@@ -124,17 +124,6 @@ writeButton.addEventListener("click", async _ => {
     const arrayBuffer = await response.arrayBuffer();
     // await w.push(arrayBuffer);
 
-    const writeTwitterPWA = writer => {
-      const encoder = new TextEncoder();
-      const data = encoder.encode("o")
-        .buffer;
-      return writer.push({
-        recordType: "android.com:pkg",
-        mediaType: "application/octet-stream",
-        data
-      });
-    };
-
     await w.push({
       records: [
         {
@@ -174,3 +163,15 @@ writeButton.addEventListener("click", async _ => {
     pre.textContent += `> ${e}\n`;
   }
 });
+
+function writeTwitterWebApkToNfcTag() {
+  const writer = new NFCWriter();
+  const encoder = new TextEncoder();
+  const data = encoder.encode("org.chromium.webapk.ace0b15a6ce931426").buffer;
+
+  return writer.push({
+    recordType: "android.com:pkg",
+    mediaType: "application/octet-stream",
+    data
+  });
+}
