@@ -44,6 +44,7 @@ const onReading = ({ message, serialNumber }) => {
     }
     const arrayBuffer = record.toArrayBuffer();
     if (!arrayBuffer) {
+      // Remove when https://github.com/w3c/web-nfc/issues/371
       pre.textContent += `  > toArrayBuffer(): ${arrayBuffer}\n`;
     } else if (record.recordType == "opaque") {
       pre.textContent += `  > toArrayBuffer():\n`;
@@ -143,7 +144,7 @@ writeButton.addEventListener("click", async _ => {
         {
           id: "2",
           recordType: "url",
-          mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
+          // mediaType: "text/plain", // remove when https://bugs.chromium.org/p/chromium/issues/detail?id=1013167 is fixed
           data: "https://google.com"
         },
         {
