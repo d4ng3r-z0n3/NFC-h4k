@@ -122,16 +122,6 @@ writeButton.addEventListener("click", async _ => {
       "https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png"
     );
     const arrayBuffer = await response.arrayBuffer();
-    // await w.push({
-    //   records: [
-    //     {
-    //       id: "1",
-    //       recordType: "opaque",
-    //       mediaType: "application/octet-stream",
-    //       data: arrayBuffer
-    //     }
-    //   ]
-    // });
     // await w.push(arrayBuffer);
 
     await w.push({
