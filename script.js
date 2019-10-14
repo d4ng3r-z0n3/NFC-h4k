@@ -34,14 +34,26 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > recordType: ${record.recordType}\n`;
     pre.textContent += `  > mediaType: ${record.mediaType}\n`;
     pre.textContent += `  > id: ${record.id}\n`;
-    pre.textContent += `  > toText(): ${record.toText().replace(/[\r\n]/g, "")}\n`;
+    pre.textContent += `  > toText(): ${record
+      .toText()
+      .replace(/[\r\n]/g, "")}\n`;
     try {
       pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
     } catch (e) {
       pre.textContent += `  ! toJSON(): ${e}\n`;
     }
     if (record.recordType != "opaque") {
-      pre.textContent += `  > toArrayBuffer(): ${record.toArrayBuffer()}\n`;
+      const arrayBuffer = record.toArrayBuffer();
+      if (arrayBuffer) {
+        console.log(arrayBuffer);
+        let a = [];
+        for (let i = 0; i < arrayBuffer.byteLength; i++) {
+          a.push("0x" + ("00" + arrayBuffer.getUint8(i).toString(16)).slice(-2));
+        }
+        pre.textContent += `  > toArrayBuffer(): ${a.join(" ")}\n`;
+      } else {
+        pre.textContent += `  > toArrayBuffer(): ${arrayBuffer}\n`;
+      }
     } else {
       pre.textContent += `  > toArrayBuffer():\n`;
       // Try to show an image
@@ -85,7 +97,7 @@ writeButton.addEventListener("click", async _ => {
   try {
     // DOMString text
     // await w.push('DOMString');
-    
+
     // DOMString json
     // await w.push(JSON.stringify({key1: 'value1'}));
 
@@ -107,7 +119,9 @@ writeButton.addEventListener("click", async _ => {
     // });
 
     // NDEFMessgeInit arrayBuffer
-    const response = await fetch("https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png");
+    const response = await fetch(
+      "https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png"
+    );
     const arrayBuffer = await response.arrayBuffer();
     // await w.push({
     //   records: [
