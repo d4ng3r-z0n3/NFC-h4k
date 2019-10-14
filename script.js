@@ -46,7 +46,7 @@ const onReading = ({ message, serialNumber }) => {
     if (!arrayBuffer) {
       // Remove when https://github.com/w3c/web-nfc/issues/371
       pre.textContent += `  > toArrayBuffer(): ${arrayBuffer}\n`;
-    } else if (record.recordType == "opaque") {
+    } else if (record.mediaType.startsWith("image")) {
       pre.textContent += `  > toArrayBuffer():\n`;
       // Try to show an image
       const blob = new Blob([record.toArrayBuffer()], {
@@ -121,8 +121,9 @@ writeButton.addEventListener("click", async _ => {
     const response = await fetch(
       "https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png"
     );
-    const arrayBuffer = await response.arrayBuffer();
-    // await w.push(arrayBuffer);
+    const opaqueArrayBuffer = await response.arrayBuffer();
+    const opaqueMediaType = response.headers.get('content-type');
+    // await w.push(opaqueArrayBuffer);
 
     await w.push({
       records: [
@@ -145,13 +146,12 @@ writeButton.addEventListener("click", async _ => {
         {
           id: "4",
           recordType: "opaque",
-          mediaType: "application/octet-stream",
-          data: arrayBuffer
+          mediaType: opaqueMediaType,
+          data: opaqueArrayBuffer
         },
         {
           id: "5",
           recordType: "android.com:pkg",
-          mediaType: "application/octet-stream",
           data: new TextEncoder().encode(
             "org.chromium.webapk.ace0b15a6ce931426"
           ).buffer
@@ -171,7 +171,6 @@ function writeTwitterWebApkToNfcTag() {
 
   return writer.push({
     recordType: "android.com:pkg",
-    mediaType: "application/octet-stream",
     data
   });
 }
