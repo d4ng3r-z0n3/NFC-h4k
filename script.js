@@ -94,6 +94,16 @@ writeButton.addEventListener("click", async _ => {
   const w = new NFCWriter();
 
   try {
+    await w.push({
+      records: [
+        {
+          recordType: "url",
+          data: "https://mobile.twitter.com"
+        }
+      ]
+    });
+    pre.textContent += "> Written\n";
+    return;
     // DOMString text
     // await w.push('DOMString');
 
@@ -122,7 +132,7 @@ writeButton.addEventListener("click", async _ => {
       "https://cdn.glitch.com/ffe1cfdc-67cb-4f9a-8380-6e9b1b69778d%2Fred.png"
     );
     const opaqueArrayBuffer = await response.arrayBuffer();
-    const opaqueMediaType = response.headers.get('content-type');
+    const opaqueMediaType = response.headers.get("content-type");
     // await w.push(opaqueArrayBuffer);
 
     await w.push({
@@ -172,5 +182,14 @@ function writeTwitterWebApkToNfcTag() {
   return writer.push({
     recordType: "android.com:pkg",
     data
+  });
+}
+
+function writeTwitterMobileToNfcTag() {
+  const writer = new NFCWriter();
+
+  return writer.push({
+    recordType: "url",
+    data: "https://mobile.twitter.com"
   });
 }
