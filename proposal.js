@@ -1,42 +1,36 @@
-function writeToNfcTag() {
+async function writeToNfcTag() {
   const writer = new NFCWriter();
-  return writer.push({
-    records: [
-      {
-        id: "1",
-        recordType: "text",
-        data: "hello"
-      },
-      {
-        id: "2",
-        recordType: "url",
-        data: "https://google.com"
-      },
-      {
-        id: "3",
-        recordType: "opaque",
-        mediaType: "application/json",
-        data: { key1: "value1", key2: "value2" }
-      },
-      {
-        id: "4",
-        recordType: "opaque",
-        mediaType: opaqueMediaType,
-        data: opaqueArrayBuffer
-      },
-      {
-        id: "5",
-        recordType: "android.com:pkg",
-        data: new TextEncoder().encode("org.chromium.webapk.ace0b15a6ce931426")
-          .buffer
-      },
-      {
-        id: "6",
-        recordType: "example.com:a",
-        data: Uint8Array.of(1)
-      }
-    ]
-  });
+  const records = [
+    {
+      recordType: "text",
+      data: "hello"
+    },
+    {
+      recordType: "url",
+      data: "https://google.com"
+    },
+    {
+      recordType: "opaque", // JSON MIME type
+      mediaType: "application/json",
+      data: { key1: "value1", key2: "value2" }
+    },
+    {
+      recordType: "opaque", // Image MIME type
+      mediaType: "image/png",
+      data: await (await fetch("image.png")).arrayBuffer()
+    },
+    {
+      recordType: "android.com:pkg", // Known external type
+      data: new TextEncoder().encode("org.chromium.webapk.ace0b15a6ce931426")
+        .buffer
+    },
+    {
+      recordType: "example.com:a", // Custom external type
+      data: Uint8Array.of(1)
+    }
+  ];
+
+  return writer.push({ records });
 }
 
 function readNfcTag() {
@@ -74,13 +68,12 @@ function readNfcTag() {
           console.log(`AAR Package Name: ${decoder.decode(data)}`);
           break;
         case "example.com:a":
-          console.log(`AAR Package Name: ${decoder.decode(data)}`);
+          console.log(`My custom external type: ${data.getUint8(0)}`);
           break;
       }
     }
   };
 }
-
 
 ```idl
 [Exposed=Window]
@@ -102,4 +95,4 @@ dictionary NDEFRecordInit {
 
   any data;
 };
-```
+```;
