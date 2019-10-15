@@ -54,7 +54,7 @@ function readNfcTag() {
           if (record.mediaType === "application/json") {
             console.log(`JSON: ${JSON.parse(decoder.decode(data))}`);
           } else if (record.mediaType.startsWith("image/")) {
-            const blob = new Blob(data, {
+            const blob = new Blob([data], {
               type: record.mediaType
             });
             const img = document.createElement("img");
