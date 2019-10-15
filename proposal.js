@@ -37,7 +37,7 @@ function readNfcTag() {
   const reader = new NFCReader();
   reader.scan();
   reader.onreading = ({ message }) => {
-    // UTF-16 handling
+    // UTF-16 handling for free if needed.
     const decoder = new TextDecoder();
 
     for (const record of message.records) {
