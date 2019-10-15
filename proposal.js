@@ -29,6 +29,11 @@ function writeToNfcTag() {
         recordType: "android.com:pkg",
         data: new TextEncoder().encode("org.chromium.webapk.ace0b15a6ce931426")
           .buffer
+      },
+      {
+        id: "6",
+        recordType: "example.com:a",
+        data: Uint8Array.of(1)
       }
     ]
   });
@@ -68,7 +73,33 @@ function readNfcTag() {
         case "android.com:pkg":
           console.log(`AAR Package Name: ${decoder.decode(data)}`);
           break;
+        case "example.com:a":
+          console.log(`AAR Package Name: ${decoder.decode(data)}`);
+          break;
       }
     }
   };
 }
+
+
+```idl
+[Exposed=Window]
+interface NDEFRecord {
+  constructor(NDEFRecordInit recordInit);
+
+  readonly attribute NDEFRecordType recordType;
+  readonly attribute USVString mediaType;
+  readonly attribute USVString id;
+  readonly attribute DataView? data;
+
+  sequence<NDEFRecord> toRecords();
+};
+
+dictionary NDEFRecordInit {
+  NDEFRecordType recordType;
+  USVString mediaType;
+  USVString id;
+
+  any data;
+};
+```
