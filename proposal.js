@@ -41,7 +41,41 @@ function readNfcTag() {
   const reader = new NFCReader();
   reader.scan();
   reader.onreading = ({ message }) => {
+    
+  const decoder = new TextDecoder();
+    
+  for (const record of message.records) {
+    switch (record.recordType) {
+      case "text":
+        console.log(`Text: ${decoder.decode(value)}`);
+        break;
+      case "url":
+        console.log(`URL: ${record.text()}`);
+        break;
+      case "opaque":
+        // Let developer handle opaque case
+        if (record.mediaType === 'application/json') {
+          console.log(`JSON: ${JSON.parse(record.text())}`);
+        } else if (record.mediaType.startsWith('image/')) {
+          const blob = new Blob([record.arrayBuffer()], {type: record.mediaType});
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(blob);
+          document.body.appendChild(img);
+        };
+        break;
+      case "android.com:pkg":
+        const decoder = new TextDecoder();
+        decoder.decode
+    }
+  }
+
+
     for (const record of message.records) {
+      if (record.recordType === 'text') {
+        console.log('Text : ' + record.text());
+      } else if (record.recordType === 'url') {
+        console.log('URL : ' + record.text());
+      } else if 
       pre.textContent += `  > recordType: ${record.recordType}\n`;
       pre.textContent += `  > mediaType: ${record.mediaType}\n`;
       pre.textContent += `  > id: ${record.id}\n`;
