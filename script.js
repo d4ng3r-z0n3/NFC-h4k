@@ -98,7 +98,7 @@ writeButton.addEventListener("click", async _ => {
       records: [
         {
           recordType: "url",
-          data: "https://mobile.twitter.com/manifest.json"
+          data: "https://youtube.com/"
         }
       ]
     });
