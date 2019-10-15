@@ -139,8 +139,8 @@ writeButton.addEventListener("click", async _ => {
         },
         {
           id: "3",
-          recordType: "json",
-          // mediaType: "application/json",
+          recordType: "json", // should be opaque?
+          mediaType: "application/json",
           data: { key1: "value1", key2: "value2" }
         },
         {
