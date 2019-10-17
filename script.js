@@ -34,22 +34,27 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > recordType: ${record.recordType}\n`;
     pre.textContent += `  > mediaType: ${record.mediaType}\n`;
     pre.textContent += `  > id: ${record.id}\n`;
-    pre.textContent += `  > toText(): ${record
-      .toText()
-      .replace(/[\r\n]/g, "")}\n`;
-    try {
-      pre.textContent += `  > toJSON(): ${record.toJSON()}\n`;
-    } catch (e) {
-      pre.textContent += `  ! toJSON(): ${e}\n`;
+    const text = record.text();
+    if (text) {
+      pre.textContent += `  > text(): ${record
+        .text()
+        .replace(/[\r\n]/g, "")}\n`;
+    } else {
+      pre.textContent += `  ! text(): ${text}\n`;
     }
-    const arrayBuffer = record.toArrayBuffer();
+    try {
+      pre.textContent += `  > json(): ${record.json()}\n`;
+    } catch (e) {
+      pre.textContent += `  ! json(): ${e}\n`;
+    }
+    const arrayBuffer = record.arrayBuffer();
     if (!arrayBuffer) {
       // Remove when https://github.com/w3c/web-nfc/issues/371
-      pre.textContent += `  > toArrayBuffer(): ${arrayBuffer}\n`;
+      pre.textContent += `  > arrayBuffer(): ${arrayBuffer}\n`;
     } else if (record.mediaType.startsWith("image")) {
-      pre.textContent += `  > toArrayBuffer():\n`;
+      pre.textContent += `  > arrayBuffer():\n`;
       // Try to show an image
-      const blob = new Blob([record.toArrayBuffer()], {
+      const blob = new Blob([record.arrayBuffer()], {
         type: record.mediaType
       });
       const img = document.createElement("img");
@@ -61,7 +66,7 @@ const onReading = ({ message, serialNumber }) => {
       for (let i = 0; i < arrayBuffer.byteLength; i++) {
         a.push("0x" + ("00" + dataView.getUint8(i).toString(16)).slice(-2));
       }
-      pre.textContent += `  > toArrayBuffer(): ${a.join(" ")}\n`;
+      pre.textContent += `  > arrayBuffer(${arrayBuffer.byteLength}): ${a.join(" ")}\n`;
     }
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
     pre.textContent += `  - - - - - - - \n`;
@@ -94,6 +99,9 @@ writeButton.addEventListener("click", async _ => {
   const w = new NFCWriter();
 
   try {
+    await w.push(new ArrayBuffer());
+    pre.textContent += "> Written\n";
+    return;
     await w.push({
       records: [
         {
@@ -102,7 +110,6 @@ writeButton.addEventListener("click", async _ => {
         }
       ]
     });
-    pre.textContent += "> Written\n";
     return;
     // DOMString text
     // await w.push('DOMString');
