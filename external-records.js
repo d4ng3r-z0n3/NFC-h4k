@@ -44,7 +44,7 @@ writer.push({ records: [
       records: [
         {
           recordType: "example.com:shoppingItem",
-          data: "1234"
+          data: Uint8rray.of(...1234)
         },
         {
           recordType: "example.com:shoppingItem",
