@@ -22,7 +22,6 @@ r.onerror = ({ error }) => {
 const onReading = ({ message, serialNumber }) => {
   playSound();
   pre.textContent += `> Serial Number: ${serialNumber}\n`;
-  pre.textContent += `> URL: ${message.url}\n`;
   pre.textContent += `> Records: (${message.records.length})\n`;
 
   if (message.records.length === 0) {
