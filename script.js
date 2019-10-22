@@ -32,6 +32,19 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > id: ${record.id}\n`;
     pre.textContent += `  > lang: ${record.lang}\n`;
     pre.textContent += `  > encoding: ${record.encoding}\n`;
+
+    switch (record.recordType) {
+      case "text":
+        const textDecoder = new TextDecoder(record.encoding);
+        pre.textContent += `  > data: ${textDecoder
+          .decode(record.data)
+          .replace(/[\r\n]/g, "")}\n`;
+        break;
+      default:
+        pre.textContent += `  > data: ${record.data}\n`;
+    }
+    pre.textContent += `  - - - - - - - \n`;
+
     const text = record.text();
     if (text) {
       pre.textContent += `  > text(): ${record
@@ -64,7 +77,9 @@ const onReading = ({ message, serialNumber }) => {
       for (let i = 0; i < arrayBuffer.byteLength; i++) {
         a.push("0x" + ("00" + dataView.getUint8(i).toString(16)).slice(-2));
       }
-      pre.textContent += `  > arrayBuffer(${arrayBuffer.byteLength}): ${a.join(" ")}\n`;
+      pre.textContent += `  > arrayBuffer(${arrayBuffer.byteLength}): ${a.join(
+        " "
+      )}\n`;
     }
     //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
     pre.textContent += `  - - - - - - - \n`;
