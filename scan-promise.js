@@ -1,6 +1,6 @@
 const abortController = new AbortController();
 
-controller.signal.onabort = event => {
+abortController.signal.onabort = event => {
   // Reset UI.
 };
 
@@ -17,9 +17,12 @@ function stopReadingTag() {
 }
 
 function onStartButtonClick() {
+  // Disable button.
   try {
     startReadingTag();
-  } catch(e) {
+  } catch (e) {
     // Could not start scanning NFC tag.
   } finally {
+    // Re-enable button
   }
+}
