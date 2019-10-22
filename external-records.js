@@ -1,4 +1,4 @@
-const reader = new NFCReader();
+const reader = new NDEFReader();
 reader.scan({
   recordType: "media",
   mediaType: "application/*json"
@@ -14,7 +14,7 @@ reader.onreading = event => {
   }
 };
 
-const writer = new NFCWriter();
+const writer = new NDEFWriter();
 const encoder = new TextEncoder();
 writer.push({
   records: [

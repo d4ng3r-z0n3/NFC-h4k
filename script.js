@@ -1,7 +1,3 @@
-if (!NFCReader) {
-  pre.textContent += `Error: ${error}\n`;
-}
-
 const audio = document.createElement("audio");
 audio.src = "https://airhorner.com/sounds/airhorn.mp3";
 
@@ -13,7 +9,7 @@ function playSound() {
   audio.play();
 }
 
-const r = new NFCReader();
+const r = new NDEFReader();
 
 r.onerror = ({ error }) => {
   pre.textContent += "Error: " + error + "\n";
@@ -95,7 +91,7 @@ abortButton.addEventListener("click", _ => {
 
 writeButton.addEventListener("click", async _ => {
   pre.textContent += "Writing...\n";
-  const w = new NFCWriter();
+  const w = new NDEFWriter();
 
   try {
     await w.push(new ArrayBuffer());
@@ -181,7 +177,7 @@ writeButton.addEventListener("click", async _ => {
 });
 
 function writeTwitterWebApkToNfcTag() {
-  const writer = new NFCWriter();
+  const writer = new NDEFWriter();
   const encoder = new TextEncoder();
   const data = encoder.encode("org.chromium.webapk.ace0b15a6ce931426").buffer;
 
@@ -192,7 +188,7 @@ function writeTwitterWebApkToNfcTag() {
 }
 
 function writeTwitterMobileToNfcTag() {
-  const writer = new NFCWriter();
+  const writer = new NDEFWriter();
 
   return writer.push({
     recordType: "url",
