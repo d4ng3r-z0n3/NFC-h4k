@@ -31,6 +31,7 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > mediaType: ${record.mediaType}\n`;
     pre.textContent += `  > id: ${record.id}\n`;
     pre.textContent += `  > lang: ${record.lang}\n`;
+    pre.textContent += `  > encoding: ${record.encoding}\n`;
     const text = record.text();
     if (text) {
       pre.textContent += `  > text(): ${record
