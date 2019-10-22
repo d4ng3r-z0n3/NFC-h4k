@@ -52,7 +52,7 @@ writer.push({
         records: [
           {
             recordType: "unknown", // Shopping ID
-            data: Uint8Array.of(...1234)
+            data: Uint8Array.of(1234)
           },
           {
             recordType: "unknown", // Shopping item description
