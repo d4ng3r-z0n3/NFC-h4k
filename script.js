@@ -33,6 +33,7 @@ const onReading = ({ message, serialNumber }) => {
     pre.textContent += `  > lang: ${record.lang}\n`;
     pre.textContent += `  > encoding: ${record.encoding}\n`;
 
+    const decoder = new TextDecoder();
     switch (record.recordType) {
       case "text":
         const textDecoder = new TextDecoder(record.encoding);
@@ -40,11 +41,12 @@ const onReading = ({ message, serialNumber }) => {
           .decode(record.data)
           .replace(/[\r\n]/g, "")}\n`;
         break;
+      case "url":
+        pre.textContent += `  > data: ${decoder.decode(record.data)}\n`;
+        break;
       default:
         pre.textContent += `  > data: ${record.data}\n`;
     }
-    pre.textContent += `  - - - - - - - \n`;
-
     const text = record.text();
     if (text) {
       pre.textContent += `  > text(): ${record
@@ -112,18 +114,18 @@ writeButton.addEventListener("click", async _ => {
   const w = new NDEFWriter();
 
   try {
-    await w.push(new ArrayBuffer());
-    pre.textContent += "> Written\n";
-    return;
-    await w.push({
-      records: [
-        {
-          recordType: "url",
-          data: "https://youtube.com/"
-        }
-      ]
-    });
-    return;
+//     await w.push(new ArrayBuffer());
+//     pre.textContent += "> Written\n";
+  
+//     await w.push({
+//       records: [
+//         {
+//           recordType: "url",
+//           data: "https://youtube.com/"
+//         }
+//       ]
+//     });
+  
     // DOMString text
     // await w.push('DOMString');
 
