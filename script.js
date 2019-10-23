@@ -47,6 +47,7 @@ const onReading = ({ message, serialNumber }) => {
       default:
         pre.textContent += `  > data: ${record.data}\n`;
     }
+    
     const text = record.text();
     if (text) {
       pre.textContent += `  > text(): ${record
