@@ -163,7 +163,8 @@ writeButton.addEventListener("click", async _ => {
         {
           id: "1",
           recordType: "text",
-          data: "hello"
+          lang: "fr",
+          data: "bonjour"
         },
         {
           id: "2",
