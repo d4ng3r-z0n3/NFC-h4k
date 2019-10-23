@@ -47,7 +47,7 @@ const onReading = ({ message, serialNumber }) => {
       default:
         pre.textContent += `  > data: ${record.data}\n`;
     }
-    
+
     const text = record.text();
     if (text) {
       pre.textContent += `  > text(): ${record
@@ -115,18 +115,18 @@ writeButton.addEventListener("click", async _ => {
   const w = new NDEFWriter();
 
   try {
-//     await w.push(new ArrayBuffer());
-//     pre.textContent += "> Written\n";
-  
-//     await w.push({
-//       records: [
-//         {
-//           recordType: "url",
-//           data: "https://youtube.com/"
-//         }
-//       ]
-//     });
-  
+    //     await w.push(new ArrayBuffer());
+    //     pre.textContent += "> Written\n";
+
+    //     await w.push({
+    //       records: [
+    //         {
+    //           recordType: "url",
+    //           data: "https://youtube.com/"
+    //         }
+    //       ]
+    //     });
+
     // DOMString text
     // await w.push('DOMString');
 
@@ -164,7 +164,9 @@ writeButton.addEventListener("click", async _ => {
           id: "1",
           recordType: "text",
           lang: "fr",
-          data: "bonjour"
+          encoding: "utf-16",
+          // data: "bonjour",
+          data: a2utf16("bonjour")
         },
         {
           id: "2",
@@ -216,4 +218,12 @@ function writeTwitterMobileToNfcTag() {
     recordType: "url",
     data: "https://mobile.twitter.com"
   });
+}
+
+function a2utf16(string) {
+  let result = new Uint16Array(string.length);
+  for (let i = 0; i < string.length; i++) {
+    result[i] = string.codePointAt(i);
+  }
+  return result;
 }
