@@ -166,7 +166,7 @@ writeButton.addEventListener("click", async _ => {
           lang: "fr",
           encoding: "utf-16",
           // data: "bonjour",
-          data: a2utf16("bonjour")
+          data: a2utf16("Bonjour, François !")
         },
         {
           id: "2",
