@@ -128,8 +128,10 @@ writeButton.addEventListener("click", async _ => {
     //     });
 
     // DOMString text
-    // await w.push('DOMString');
-
+    await w.push('DOMString');
+    pre.textContent += "> Written\n";
+    return;
+    
     // DOMString json
     // await w.push(JSON.stringify({key1: 'value1'}));
 
