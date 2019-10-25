@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta id="color" name="theme-color" content="red">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="black" />
+    <style>
+      #color {
+        width: 124px;
+        height: 124px;
+        border-radius: 50%;
+        background: black;
+        margin: auto;
+      }
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        display: flex;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <pre id="pre"></pre>
+    <div id="color"></div>
     <script>
-      if ('NDEFReader' in window) {
+      if ("NDEFReader" in window) {
         import("/script.js");
       } else {
-        pre.textContent = 'No WebNFC support!\n';
+        pre.textContent = "No WebNFC support!\n";
       }
     </script>
   </body>
