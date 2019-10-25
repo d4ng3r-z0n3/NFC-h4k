@@ -14,35 +14,39 @@ function createSequence() {
   return sequence;
 }
 
+const sequence = createSequence();
+(async _ => {
+  await oneSec();
+  for (const serialNumber of sequence) {
+    // log(tagsColors[serialNumber]);
+    html.style.backgroundColor = tagsColors[serialNumber];
+    await oneSec();
+  }
+  html.style.backgroundColor = "white";
+})();
+
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
-  if (serialNumber !== sequence[index]) {
+  if (serialNumber !== sequence.shift()) {
     log("LOST");
     return;
   }
-  log(tagsColors[serialNumber]);
-  if (index === sequence.length - 1) {
+  // log(tagsColors[serialNumber]);
+  if (sequence.length === 0) {
     log("WIN");
     return;
   }
-  index++;
 });
 
-const sequence = createSequence();
-let index = 0;
-log("Play now!");
-(async _ => {
-  for (const serialNumber of sequence) {
-    document.querySelector("html").style.backgroundColor =
-      tagsColors[serialNumber];
-    await new Promise(resolve => {
-      setTimeout(resolve, 1000);
-    });
-    log(tagsColors[serialNumber]);
-  }
-})();
+/* Utils */
+
+function oneSec() {
+  return new Promise(resolve => {
+    setTimeout(resolve, 1000);
+  });
+}
 
 function log(text) {
-  document.querySelector("pre").textContent += `${text}\n`;
+  pre.textContent += `${text}\n`;
 }
