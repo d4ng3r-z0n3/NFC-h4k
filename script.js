@@ -4,18 +4,18 @@ const tagsColors = {
   "04:68:6d:0a:bb:5d:81": "blue"
 };
 
+function createSequence() {
+  const sequence = [];
+  const serialNumbers = Object.keys(tagsColors);
+  while (serialNumbers.length) {
+    const randomIndex = Math.floor(Math.random() * serialNumbers.length);
+    sequence.push(serialNumbers.splice(randomIndex, 1));
+  }
+  return sequence;
+}
+
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
   pre.textContent += `${tagsColors[serialNumber]}\n`;
 });
-
-function createSequence(number) {
-  const sequence = [];
-  const serialNumbers = Object.keys(tagsColors);
-  while (serialNumbers.length) {
-    const randomNumber = Math.floor(Math.random() * serialNumbers.length); 
-
-    sequence.push(tagsColors)
-  }
-}
