@@ -44,7 +44,7 @@ reader.addEventListener("reading", ({ serialNumber }) => {
 /* Utils */
 
 function setColor(text) {
-  color.content = text;
+  color.style.backgroundColor = text;
 }
 
 function oneSec() {
