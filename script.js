@@ -6,31 +6,31 @@ const tagsColors = {
   "04:6c:8e:0a:bb:5d:80": "orange"
 };
 
-function createSequence() {
-  const serialNumbers = Object.keys(tagsColors);
-  let sequence = [];
-  while (serialNumbers.length) {
-    const randomIndex = Math.floor(Math.random() * serialNumbers.length);
-    sequence = sequence.concat(serialNumbers.splice(randomIndex, 1));
-  }
-  return sequence;
+// Create random sequence of tags to tap in the right order
+let sequence = [];
+const serialNumbers = Object.keys(tagsColors);
+while (serialNumbers.length) {
+  const randomIndex = Math.floor(Math.random() * serialNumbers.length);
+  sequence = sequence.concat(serialNumbers.splice(randomIndex, 1));
 }
 
-const sequence = createSequence();
-(async _ => {
+// Show user colors to memorize
+// (async _ => {
   await oneSec();
   for (const serialNumber of sequence) {
     setColor(tagsColors[serialNumber]);
     await oneSec();
   }
-  setColor('');
-})();
+  setColor("");
+// })();
 
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
   log(serialNumber);
+  setColor(tagsColors[serialNumber]);
   if (serialNumber !== sequence.shift()) {
+    setColor("white");
     log("LOST");
     return;
   }
