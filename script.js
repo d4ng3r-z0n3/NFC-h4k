@@ -1,7 +1,9 @@
 const tagsColors = {
   "04:08:4c:0a:bb:5d:81": "red",
   "04:60:73:0a:bb:5d:80": "green",
-  "04:68:6d:0a:bb:5d:81": "blue"
+  "04:68:6d:0a:bb:5d:81": "blue",
+  "04:fa:3a:0a:bb:5d:80": "purple",
+  "04:6c:8e:0a:bb:5d:80": "orange"
 };
 
 function createSequence() {
@@ -18,16 +20,16 @@ const sequence = createSequence();
 (async _ => {
   await oneSec();
   for (const serialNumber of sequence) {
-    // log(tagsColors[serialNumber]);
-    html.style.backgroundColor = tagsColors[serialNumber];
+    setColor(tagsColors[serialNumber]);
     await oneSec();
   }
-  html.style.backgroundColor = "white";
+  setColor('');
 })();
 
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
+  log(serialNumber);
   if (serialNumber !== sequence.shift()) {
     log("LOST");
     return;
@@ -40,6 +42,10 @@ reader.addEventListener("reading", ({ serialNumber }) => {
 });
 
 /* Utils */
+
+function setColor(text) {
+  color.content = text;
+}
 
 function oneSec() {
   return new Promise(resolve => {
