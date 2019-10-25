@@ -6,7 +6,7 @@ const tagsColors = {
   "04:6c:8e:0a:bb:5d:80": "orange"
 };
 
-// Create random sequence of tags to tap in the right order
+// Create random sequence of tags to tap in the right order.
 let sequence = [];
 const serialNumbers = Object.keys(tagsColors);
 while (serialNumbers.length) {
@@ -14,30 +14,30 @@ while (serialNumbers.length) {
   sequence = sequence.concat(serialNumbers.splice(randomIndex, 1));
 }
 
-// Show user colors to memorize
-// (async _ => {
-  await oneSec();
+// Show user colors to memorize.
+(async _ => {
   for (const serialNumber of sequence) {
-    setColor(tagsColors[serialNumber]);
-    await oneSec();
+    await setColor(tagsColors[serialNumber]);
   }
-  setColor("");
-// })();
+  setColor("gainsboro");
+})();
 
+// Start listening to tags.
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
-  log(serialNumber);
-  setColor(tagsColors[serialNumber]);
+  // User tapped wrong tag.
   if (serialNumber !== sequence.shift()) {
-    setColor("white");
-    log("LOST");
+    setColor("");
     return;
   }
-  // log(tagsColors[serialNumber]);
+
+  // Show tag color user tapped.
+  setColor(tagsColors[serialNumber]);
+
+  // User tapped all tags in the right order.
   if (sequence.length === 0) {
     log("WIN");
-    return;
   }
 });
 
@@ -45,9 +45,6 @@ reader.addEventListener("reading", ({ serialNumber }) => {
 
 function setColor(text) {
   color.style.backgroundColor = text;
-}
-
-function oneSec() {
   return new Promise(resolve => {
     setTimeout(resolve, 1000);
   });
