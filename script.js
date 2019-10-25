@@ -17,16 +17,32 @@ function createSequence() {
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
+  if (serialNumber !== sequence[index]) {
+    log("LOST");
+    return;
+  }
   log(tagsColors[serialNumber]);
-  if (expectedSerialNumber)
+  if (index === sequence.length - 1) {
+    log("WIN");
+    return;
+  }
+  index++;
 });
 
 const sequence = createSequence();
+let index = 0;
 log("Play now!");
-for (const serialNumber of sequence) {
-  log(tagsColors[serialNumber]);
-}
+(async _ => {
+  for (const serialNumber of sequence) {
+    document.querySelector("html").style.backgroundColor =
+      tagsColors[serialNumber];
+    await new Promise(resolve => {
+      setTimeout(resolve, 1000);
+    });
+    log(tagsColors[serialNumber]);
+  }
+})();
 
 function log(text) {
-  pre.textContent += `${text}\n`;
+  document.querySelector("pre").textContent += `${text}\n`;
 }
