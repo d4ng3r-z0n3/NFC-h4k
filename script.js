@@ -1,107 +1,22 @@
-const audio = document.createElement("audio");
-audio.src = "https://airhorner.com/sounds/airhorn.mp3";
-
-function playSound() {
-  if (!soundInput.checked) {
-    return;
+const tags = [
+  {
+    serialNumber: "04:08:4c:0a:bb:5d:81",
+    color: "red"
+  },
+  {
+    serialNumber: "04:60:73:0a:bb:5d:80",
+    color: "green"
+  },
+  {
+    serialNumber: "04:68:6d:0a:bb:5d:81",
+    color: "blue"
   }
-  audio.currentTime = 0;
-  audio.play();
-}
-
-const r = new NDEFReader();
-
-r.onerror = ({ error }) => {
-  pre.textContent += "Error: " + error + "\n";
-};
-
-const onReading = ({ message, serialNumber }) => {
-  playSound();
+];
+const reader = new NDEFReader();
+reader.scan();
+reader.onReading = ({ serialNumber }) => {
   pre.textContent += `> Serial Number: ${serialNumber}\n`;
-  pre.textContent += `> Records: (${message.records.length})\n`;
-
-  if (message.records.length === 0) {
-    pre.textContent += `  > No WebNFC records\n`;
-    return;
-  }
-
-  for (const record of message.records) {
-    console.log(record);
-    pre.textContent += `  > recordType: ${record.recordType}\n`;
-    pre.textContent += `  > mediaType: ${record.mediaType}\n`;
-    pre.textContent += `  > id: ${record.id}\n`;
-    pre.textContent += `  > lang: ${record.lang}\n`;
-    pre.textContent += `  > encoding: ${record.encoding}\n`;
-
-    const decoder = new TextDecoder();
-    switch (record.recordType) {
-      case "text":
-        const textDecoder = new TextDecoder(record.encoding);
-        pre.textContent += `  > data: ${textDecoder
-          .decode(record.data)
-          .replace(/[\r\n]/g, "")}\n`;
-        break;
-      case "url":
-        pre.textContent += `  > data: ${decoder.decode(record.data)}\n`;
-        break;
-      default:
-        pre.textContent += `  > data: ${record.data}\n`;
-    }
-
-    const text = record.text();
-    if (text) {
-      pre.textContent += `  > text(): ${record
-        .text()
-        .replace(/[\r\n]/g, "")}\n`;
-    } else {
-      pre.textContent += `  ! text(): ${text}\n`;
-    }
-    try {
-      pre.textContent += `  > json(): ${record.json()}\n`;
-    } catch (e) {
-      pre.textContent += `  ! json(): ${e}\n`;
-    }
-    const arrayBuffer = record.arrayBuffer();
-    if (!arrayBuffer) {
-      // Remove when https://github.com/w3c/web-nfc/issues/371
-      pre.textContent += `  > arrayBuffer(): ${arrayBuffer}\n`;
-    } else if (record.mediaType.startsWith("image")) {
-      pre.textContent += `  > arrayBuffer():\n`;
-      // Try to show an image
-      const blob = new Blob([record.arrayBuffer()], {
-        type: record.mediaType
-      });
-      const img = document.createElement("img");
-      img.src = URL.createObjectURL(blob);
-      document.body.appendChild(img);
-    } else {
-      let a = [];
-      const dataView = new DataView(arrayBuffer);
-      for (let i = 0; i < arrayBuffer.byteLength; i++) {
-        a.push("0x" + ("00" + dataView.getUint8(i).toString(16)).slice(-2));
-      }
-      pre.textContent += `  > arrayBuffer(${arrayBuffer.byteLength}): ${a.join(
-        " "
-      )}\n`;
-    }
-    //pre.textContent += `  > toRecords(): ${record.toRecords()}\n`;
-    pre.textContent += `  - - - - - - - \n`;
-  }
 };
-
-const onReadingInputChange = _ => {
-  r.onreading = readingInput.checked ? onReading : null;
-};
-
-readingInput.onchange = onReadingInputChange;
-onReadingInputChange();
-
-const abortController = new AbortController();
-abortController.signal.addEventListener("abort", _ => {
-  pre.textContent += "> Aborted\n";
-});
-
-r.scan({ signal: abortController.signal });
 pre.textContent += `Scanning...\n`;
 
 abortButton.addEventListener("click", _ => {
