@@ -5,23 +5,8 @@
   </head>
   <body>
     <h1>
-       WebNFC 👾
+       CDS19 - NFC 👾
     </h1>
-    <button id="writeButton">
-      Write tag
-    </button>
-    <button id="abortButton">
-      Abort scan
-    </button>
-    <label>
-      <input id="readingInput" type="checkbox" checked style="vertical-align: bottom"/>
-      onreading
-    </label>
-    <label>
-      <input id="soundInput" type="checkbox" style="vertical-align: bottom"/>
-      sound
-    </label>
-    <iframe src="iframe.html" style="display:block; height: 64px; margin-top: 12px"></iframe>
     <pre id="pre" style="overflow: auto; padding: 0 12px 12px 0"></pre>
     <script>
       if ('NDEFReader' in window) {
@@ -29,7 +14,6 @@
       } else {
         pre.textContent = 'No WebNFC support!\n';
       }
-      document.addEventListener('focus', event => { console.log('focus doc') });
     </script>
   </body>
 </html>
