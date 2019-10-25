@@ -5,11 +5,11 @@ const tagsColors = {
 };
 
 function createSequence() {
-  const sequence = [];
   const serialNumbers = Object.keys(tagsColors);
+  let sequence = [];
   while (serialNumbers.length) {
     const randomIndex = Math.floor(Math.random() * serialNumbers.length);
-    sequence.push(serialNumbers.splice(randomIndex, 1));
+    sequence = sequence.concat(serialNumbers.splice(randomIndex, 1));
   }
   return sequence;
 }
@@ -17,5 +17,16 @@ function createSequence() {
 const reader = new NDEFReader();
 reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
-  pre.textContent += `${tagsColors[serialNumber]}\n`;
+  log(tagsColors[serialNumber]);
+  if (expectedSerialNumber)
 });
+
+const sequence = createSequence();
+log("Play now!");
+for (const serialNumber of sequence) {
+  log(tagsColors[serialNumber]);
+}
+
+function log(text) {
+  pre.textContent += `${text}\n`;
+}
