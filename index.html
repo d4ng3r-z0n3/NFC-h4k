@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Google+Sans:400,500">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Google+Sans:400,500|Material+Icons">
     <style>
       html {
         box-shadow: 0 0 2px blue;
@@ -39,7 +39,16 @@
       h1 {
         margin: 48px auto;
         text-align: center;
+/*         color: #666; */
         font-family: "Google Sans";
+      }
+      i {
+/*         margin: 0 auto !important; */
+/*     display: inline-block; */
+    font-size: 48px !important;
+    width: 48px;
+    overflow: hidden;
+        vertical-align: bottom;
       }
     </style>
   </head>
@@ -52,7 +61,7 @@
       <div></div>
       <div></div>
     </div>
-    <h1>Web NFC Demo</h1>
+    <h1><i class="material-icons">nfc</i>play</h1>
     <pre id="pre"></pre>
     <script>
       if ("NDEFReader" in window) {
