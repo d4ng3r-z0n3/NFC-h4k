@@ -4,7 +4,7 @@ const tagsColors = {
   "04:68:6d:0a:bb:5d:81": "blue",
   "04:fa:3a:0a:bb:5d:80": "purple",
   "04:6c:8e:0a:bb:5d:80": "orange",
-  "04:48:4c:0a:bb:5d:80": "black",
+  "04:48:4c:0a:bb:5d:80": "black"
 };
 
 let serialNumbers = [];
@@ -41,7 +41,8 @@ async function start() {
       allSerialNumbers.splice(randomIndex, 1)
     );
   }
-console.log(serialNumbers.map(serialNumber => tagsColors[serialNumber]))
+
+  console.log(serialNumbers.map(serialNumber => tagsColors[serialNumber]));
 
   // Show colors to memorize.
   for (const serialNumber of serialNumbers) {
@@ -91,4 +92,3 @@ function setColor(text) {
   card.style.backgroundColor = text;
   return card;
 }
-

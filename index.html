@@ -20,7 +20,7 @@
         position: absolute;
         bottom: 0;
         right: 12px;
-        color: white;
+        color: red;
       }
       #cards {
         margin: 24px auto 0 auto;
@@ -47,17 +47,20 @@
         margin: 64px auto;
         text-align: center;
         background-color: #444;
+        background-image: linear-gradient()
         font-family: "Google Sans";
         color: white;
-        width: 303px;
+        width: 300px;
         padding: 12px;
         border-radius: 6px;
+        font-weight: normal;
       }
       i {
         font-size: 48px !important;
         padding-right: 8px;
         overflow: hidden;
         vertical-align: middle;
+/*         color: #03a9f4; */
       }
       .hidden {
         display: none !important;
@@ -79,7 +82,7 @@
       if ("NDEFReader" in window) {
         import("/script.js");
       } else {
-        pre.textContent = "⚠️ No Web NFC\n";
+        pre.textContent = "⚠️ Enable Web NFC flag";
       }
     </script>
   </body>
