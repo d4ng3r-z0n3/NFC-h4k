@@ -51,7 +51,7 @@ async function start() {
       setTimeout(_ => {
         resolve();
         card.style.backgroundColor = "";
-      }, 200);
+      }, 500);
     });
   }
 
@@ -92,3 +92,5 @@ function setColor(text) {
   card.style.backgroundColor = text;
   return card;
 }
+
+Object
