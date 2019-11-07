@@ -42,8 +42,10 @@ async function start() {
     );
   }
 
-  if (location.search.includes('god')) {
-    pre.textContent = serialNumbers.map(serialNumber => tagsColors[serialNumber]);
+  if (location.search.includes("god")) {
+    pre.textContent = serialNumbers.map(
+      serialNumber => tagsColors[serialNumber]
+    );
   }
 
   // Show colors to memorize.
