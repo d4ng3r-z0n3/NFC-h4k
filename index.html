@@ -2,10 +2,13 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://raw.githubusercontent.com/google/material-design-icons/master/device/2x_web/ic_nfc_black_48dp.png" rel="icon">
+    <link
+      href="https://raw.githubusercontent.com/google/material-design-icons/master/device/2x_web/ic_nfc_black_48dp.png"
+      rel="icon"
+    />
     <link
       rel="stylesheet"
-      href="//fonts.googleapis.com/css?family=Google+Sans:400,500|Material+Icons"
+      href="//fonts.googleapis.com/css?family=Google+Sans:400,500"
     />
     <style>
       html {
@@ -25,6 +28,11 @@
         right: 0;
         margin: 0;
         text-align: center;
+        font-family: "Google Sans";
+      }
+      a {
+        text-decoration: none;
+        color: #4c8bf5;
       }
       #cards {
         margin: 24px auto 0 auto;
@@ -56,18 +64,12 @@
         background-image: linear-gradient(to bottom right, #777, #444);
         font-family: "Google Sans";
         color: white;
-        width: 300px;
+        width: 200px;
         padding: 12px;
         border-radius: 6px;
         font-weight: normal;
         box-shadow: inset 0 -4px 2px #222;
         border-radius: 48px;
-      }
-      i {
-        font-size: 48px !important;
-        padding-right: 8px;
-        overflow: hidden;
-        vertical-align: middle;
       }
       .hidden {
         display: none !important;
@@ -83,8 +85,10 @@
       <div></div>
       <div></div>
     </div>
-    <h1 id="button"><i class="material-icons">nfc</i>start game</h1>
-    <pre id="pre"></pre>
+    <h1 id="button">
+      start game
+    </h1>
+    <pre id="pre">Powered by <a target="_blank" href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
     <script>
       if ("NDEFReader" in window) {
         import("/script.js");
