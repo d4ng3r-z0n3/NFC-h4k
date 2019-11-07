@@ -22,9 +22,7 @@ reader.addEventListener("reading", ({ serialNumber }) => {
   setColor(tagsColors[serialNumber]);
 
   // User tapped all tags in the right order.
-  if (serialNumbers.length === 0) {
-    log("WIN");
-  }
+  if (serialNumbers.length === 0) win();
 });
 
 button.onclick = start;
@@ -32,8 +30,10 @@ button.onclick = start;
 /* Game logic */
 
 async function start() {
-  document.getElementById("cards").style.visibility = '';
-  
+  document.getElementById("cards").classList.toggle("hidden", false);
+  document.getElementById("lost").classList.toggle("hidden", true);
+  document.getElementById("win").classList.toggle("hidden", true);
+
   // Create random sequence of tag serial numbers.
   const allSerialNumbers = Object.keys(tagsColors);
   while (allSerialNumbers.length) {
@@ -42,6 +42,7 @@ async function start() {
       allSerialNumbers.splice(randomIndex, 1)
     );
   }
+
   // Show colors to memorize.
   for (const serialNumber of serialNumbers) {
     const card = setColor(tagsColors[serialNumber]);
@@ -52,14 +53,18 @@ async function start() {
       }, 200);
     });
   }
-};
+}
 
 function lost() {
-   document.getElementById("cards").style.visibility = 'hidden';
+  document.getElementById("cards").classList.toggle("hidden", true);
+  document.getElementById("lost").classList.toggle("hidden", false);
+  document.getElementById("win").classList.toggle("hidden", true);
 }
 
 function win() {
-   document.getElementById("cards").style.visibility = 'hidden';
+  document.getElementById("cards").classList.toggle("hidden", true);
+  document.getElementById("lost").classList.toggle("hidden", true);
+  document.getElementById("win").classList.toggle("hidden", false);
 }
 
 /* Utils */
@@ -74,4 +79,3 @@ function setColor(text) {
 function log(text) {
   pre.textContent += `${text}\n`;
 }
-

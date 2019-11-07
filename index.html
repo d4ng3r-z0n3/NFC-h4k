@@ -56,6 +56,9 @@
         overflow: hidden;
         vertical-align: middle;
       }
+      .hidden {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -67,10 +70,9 @@
       <div></div>
       <div></div>
     </div>
+    <div id="win" class="hidden">🏆</div>
+    <div id="lost" class="hidden">😢</div>
     <h1 id="button"><i class="material-icons">nfc</i>play</h1>
-    <div id="lost">
-      🏆
-    </div>
     <pre id="pre"></pre>
     <script>
       if ("NDEFReader" in window) {
