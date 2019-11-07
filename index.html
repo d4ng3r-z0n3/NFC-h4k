@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Google+Sans:400,500|Material+Icons">
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Google+Sans:400,500|Material+Icons"
+    />
     <style>
       html {
         box-shadow: 0 0 2px blue;
@@ -36,19 +39,22 @@
         border-radius: 4px;
         box-shadow: 0 1px 2px grey;
       }
-      h1 {
-        margin: 48px auto;
+      #button {
+        user-select: none;
+        margin: 64px auto;
         text-align: center;
-/*         color: #666; */
+        background-color: #1aa260;
         font-family: "Google Sans";
+        color: white;
+        width: 128px;
+        padding: 12px;
+        border-radius: 6px;
       }
       i {
-/*         margin: 0 auto !important; */
-/*     display: inline-block; */
-    font-size: 48px !important;
-    width: 48px;
-    overflow: hidden;
-        vertical-align: bottom;
+        font-size: 48px !important;
+        width: 48px;
+        overflow: hidden;
+        vertical-align: middle;
       }
     </style>
   </head>
@@ -61,7 +67,7 @@
       <div></div>
       <div></div>
     </div>
-    <h1><i class="material-icons">nfc</i>play</h1>
+    <h1 id="button"><i class="material-icons">nfc</i>play</h1>
     <pre id="pre"></pre>
     <script>
       if ("NDEFReader" in window) {

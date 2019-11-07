@@ -14,14 +14,6 @@ while (allSerialNumbers.length) {
   serialNumbers = serialNumbers.concat(allSerialNumbers.splice(randomIndex, 1));
 }
 
-// Show user colors to memorize.
-(async _ => {
-  for (const serialNumber of serialNumbers) {
-    await setColor(tagsColors[serialNumber]);
-  }
-  setColor("gainsboro");
-})();
-
 // Start listening to tags.
 const reader = new NDEFReader();
 reader.scan();
@@ -44,6 +36,7 @@ reader.addEventListener("reading", ({ serialNumber }) => {
 /* Utils */
 
 function setColor(text) {
+  
   color.style.backgroundColor = text;
   return new Promise(resolve => {
     setTimeout(resolve, 500);
@@ -53,3 +46,11 @@ function setColor(text) {
 function log(text) {
   pre.textContent += `${text}\n`;
 }
+
+// On button click, reset game and show colors to memorize.
+button.onclick = async _ => {
+  for (const serialNumber of serialNumbers) {
+    await setColor(tagsColors[serialNumber]);
+  }
+  setColor("gainsboro");
+};
