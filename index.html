@@ -40,6 +40,7 @@
         box-shadow: 0 1px 2px grey;
         background-position: center;
         background-repeat: no-repeat;
+        background-size: 50%;
       }
       #button {
         user-select: none;
@@ -72,7 +73,7 @@
       <div></div>
       <div></div>
     </div>
-    <h1 id="button"><i class="material-icons">nfc</i><span id="play"></span>play</h1>
+    <h1 id="button"><i class="material-icons">nfc</i>play</h1>
     <pre id="pre"></pre>
     <script>
       if ("NDEFReader" in window) {
@@ -81,10 +82,5 @@
         pre.textContent = "⚠️ No Web NFC\n";
       }
     </script>
-    <a
-      title="Vincent Le Moign [CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)], via Wikimedia Commons"
-      href="https://commons.wikimedia.org/wiki/File:029-sad-but-relieved-face.svg"
-      ><img width="512" alt="029-sad-but-relieved-face" src=""
-    /></a>
   </body>
 </html>

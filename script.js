@@ -31,8 +31,6 @@ button.onclick = start;
 async function start() {
   document.getElementById("button").classList.toggle("hidden", true);
   document.getElementById("cards").classList.toggle("hidden", false);
-  document.getElementById("lost").classList.toggle("hidden", true);
-  document.getElementById("win").classList.toggle("hidden", true);
 
   // Create random sequence of tag serial numbers.
   const allSerialNumbers = Object.keys(tagsColors);
@@ -60,21 +58,23 @@ async function start() {
 }
 
 function lost() {
+  reader.onreading = null;
   Array.from(document.getElementById("cards").children).forEach(card => {
     card.style.backgroundColor = "";
     card.style.backgroundImage =
-      "url(https://upload.wikimedia.org/wikipedia/commons/c/cb/029-sad-but-relieved-face.svg)";
+      "url(https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Floudly-crying-face.png?v=1573121443006)";
   });
   document.getElementById("button").classList.toggle("hidden", false);
-  document.getElementById("win").classList.toggle("hidden", true);
-  reader.onreading = null;
 }
 
 function win() {
-  document.getElementById("button").classList.toggle("hidden", true);
-  document.getElementById("cards").classList.toggle("hidden", true);
-  document.getElementById("lost").classList.toggle("hidden", true);
-  document.getElementById("win").classList.toggle("hidden", false);
+  reader.onreading = null;
+  Array.from(document.getElementById("cards").children).forEach(card => {
+    card.style.backgroundColor = "";
+    card.style.backgroundImage =
+      "url(https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577)";
+  });
+  document.getElementById("button").classList.toggle("hidden", false);
 }
 
 /* Utils */
