@@ -25,11 +25,7 @@ function onreading({ serialNumber }) {
   if (serialNumbers.length === 0) win();
 }
 
-button.onclick = start;
-
-/* Game logic */
-
-async function start() {
+button.onclick = async () => {
   reset();
 
   // Create random sequence of tag serial numbers.
