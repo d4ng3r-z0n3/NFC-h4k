@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <style>
       #color {
         width: 248px;
@@ -10,9 +10,10 @@
         margin: auto;
       }
       html {
+        box-shadow: 0 0 2px blue;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.1);
+/*         background-color: rgba(0, 0, 0, 0.4); */
       }
       body {
         display: flex;
@@ -25,6 +26,7 @@
       }
       #container {
         margin: auto;
+        margin-top: 24px;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr;
         display: grid;
@@ -36,7 +38,8 @@
       #container > div {
         background-color: white;
         border-radius: 4px;
-        /*         border: 3px solid #00f; */
+        box-shadow: 0 1px 2px grey;
+/*         background-image: linear-gradient(red, orange); */
       }
     </style>
   </head>
