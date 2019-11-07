@@ -42,7 +42,9 @@ async function start() {
     );
   }
 
-  console.log(serialNumbers.map(serialNumber => tagsColors[serialNumber]));
+  if (location.search.includes('god')) {
+    pre.textContent = serialNumbers.map(serialNumber => tagsColors[serialNumber]);
+  }
 
   // Show colors to memorize.
   for (const serialNumber of serialNumbers) {
@@ -92,5 +94,3 @@ function setColor(text) {
   card.style.backgroundColor = text;
   return card;
 }
-
-Object
