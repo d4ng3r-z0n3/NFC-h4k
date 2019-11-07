@@ -36,10 +36,14 @@ reader.addEventListener("reading", ({ serialNumber }) => {
 /* Utils */
 
 function setColor(text) {
-  
-  color.style.backgroundColor = text;
+  const cards = document.getElementById("cards").children;
+  const card = cards[Object.values(tagsColors).indexOf(text)];
+  card.style.backgroundColor = text;
   return new Promise(resolve => {
-    setTimeout(resolve, 500);
+    setTimeout(_ => {
+      resolve();
+      card.style.backgroundColor = "";
+    }, 200);
   });
 }
 
@@ -52,5 +56,5 @@ button.onclick = async _ => {
   for (const serialNumber of serialNumbers) {
     await setColor(tagsColors[serialNumber]);
   }
-  setColor("gainsboro");
+  // setColor("gainsboro");
 };
