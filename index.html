@@ -3,12 +3,6 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      #color {
-        width: 248px;
-        height: 248px;
-        border-radius: 50%;
-        margin: auto;
-      }
       html {
         box-shadow: 0 0 2px blue;
         width: 100%;
@@ -16,17 +10,16 @@
         background-color: rgba(0, 0, 0, 0.4);
       }
       body {
-/*         display: flex; */
-        height: 100%;
         margin: 0;
       }
       pre {
         position: absolute;
-        left: 12px;
+        bottom: 0;
+        right: 12px;
+        color: white;
       }
-      #container {
-        margin: auto;
-/*         margin-top: 24px; */
+      #cards {
+        margin: 0 auto;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr;
         display: grid;
@@ -35,19 +28,17 @@
         height: 300px;
         overflow: hidden;
         padding: 2px;
-/*         border: 2px solid red; */
-        transform: perspective(300px) rotateX(30deg);
+        transform: perspective(500px) rotateX(30deg);
       }
-      #container > div {
+      #cards > div {
         background-color: white;
         border-radius: 4px;
         box-shadow: 0 1px 2px grey;
-/*         background-image: linear-gradient(red, orange); */
       }
     </style>
   </head>
   <body>
-    <div id="container">
+    <div id="cards">
       <div></div>
       <div></div>
       <div></div>
@@ -56,12 +47,11 @@
       <div></div>
     </div>
     <pre id="pre"></pre>
-    <!--     <div id="color"></div> -->
     <script>
       if ("NDEFReader" in window) {
         import("/script.js");
       } else {
-        pre.textContent = "No Web NFC support!\n";
+        pre.textContent = "⚠️ No Web NFC\n";
       }
     </script>
   </body>
