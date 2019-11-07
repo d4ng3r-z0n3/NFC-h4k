@@ -3,17 +3,12 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
-      href="https://raw.githubusercontent.com/google/material-design-icons/master/device/2x_web/ic_nfc_black_48dp.png"
+      href="https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fic_nfc_black_48dp.png?v=1573158259618"
       rel="icon"
     />
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/css?family=Google+Sans:400,500"
-    />
+    <link rel="manifest" href="manifest.json" />
     <style>
       html {
-        box-shadow: 0 0 2px blue;
-        width: 100%;
         height: 100%;
         background-image: linear-gradient(lightgrey, white);
       }
@@ -28,7 +23,7 @@
         right: 0;
         margin: 0;
         text-align: center;
-        font-family: "Google Sans";
+        font-family: "Roboto";
       }
       a {
         text-decoration: none;
@@ -61,8 +56,8 @@
         margin: 64px auto;
         text-align: center;
         background-color: #444;
-        background-image: linear-gradient(to bottom right, #444, #999, #444);
-        font-family: "Google Sans";
+        background-image: linear-gradient(to bottom right, #444, #777, #444);
+        font-family: "Roboto";
         color: white;
         width: 200px;
         padding: 12px;
@@ -88,12 +83,19 @@
     <h1 id="button">
       start game
     </h1>
-    <pre id="pre">Powered by <a target="_blank" href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
+    <pre
+      id="pre"
+    >Powered by <a target="_blank" href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
     <script>
       if ("NDEFReader" in window) {
         import("/script.js");
       } else {
         pre.textContent = "⚠️ Enable Web NFC flag";
+      }
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").then(() => {
+          console.log("Service Worker Registered");
+        });
       }
     </script>
   </body>
