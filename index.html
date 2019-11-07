@@ -23,18 +23,18 @@
         left: 12px;
       }
       #container {
-        grid-template-rows: 40px 40px 40px;
-        grid-template-columns: 40px 40px 40px;
+        grid-template-rows: 140px 140px 140px;
+        grid-template-columns: 140px 140px 140px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-        width: 200px;
-        transform: perspective(100px);
+        //grid-gap: 10px;
+        //width: 200px;
+        transform: perspective(500px) rotate3d(40,-45,0,-5deg);
       }
       #container > div {
         background-color: rgba(0, 0, 255, 0.2);
         border: 3px solid #00f;
-        transform: rotateX(20deg);
+/*         transform: rotateX(0deg); */
+
       }
     </style>
   </head>
