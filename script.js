@@ -8,10 +8,9 @@ const tagsColors = {
 
 let serialNumbers = [];
 
-// Start listening to tags.
 const reader = new NDEFReader();
-reader.scan();
-reader.addEventListener("reading", ({ serialNumber }) => {
+
+function onreading({ serialNumber }) {
   // User tapped wrong tag.
   if (serialNumber !== serialNumbers.shift()) {
     lost();
@@ -23,13 +22,14 @@ reader.addEventListener("reading", ({ serialNumber }) => {
 
   // User tapped all tags in the right order.
   if (serialNumbers.length === 0) win();
-});
+};
 
 button.onclick = start;
 
 /* Game logic */
 
 async function start() {
+  document.getElementById("button").classList.toggle("hidden", true);
   document.getElementById("cards").classList.toggle("hidden", false);
   document.getElementById("lost").classList.toggle("hidden", true);
   document.getElementById("win").classList.toggle("hidden", true);
@@ -53,15 +53,23 @@ async function start() {
       }, 200);
     });
   }
+  
+  // Start listening to tags.
+  await reader.scan();
+  reader.onreading = onreading;
 }
 
 function lost() {
-  document.getElementById("cards").classList.toggle("hidden", true);
-  document.getElementById("lost").classList.toggle("hidden", false);
+  document.getElementById("cards").children.forEach(card => card.style.backgroundColor = 'black');  
+  document.getElementById("button").classList.toggle("hidden", false);
+  // document.getElementById("cards").classList.toggle("hidden", true);
+  // document.getElementById("lost").classList.toggle("hidden", false);
   document.getElementById("win").classList.toggle("hidden", true);
+  reader.onreading = null;
 }
 
 function win() {
+  document.getElementById("button").classList.toggle("hidden", true);
   document.getElementById("cards").classList.toggle("hidden", true);
   document.getElementById("lost").classList.toggle("hidden", true);
   document.getElementById("win").classList.toggle("hidden", false);
