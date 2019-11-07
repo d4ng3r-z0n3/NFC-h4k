@@ -22,7 +22,7 @@ function onreading({ serialNumber }) {
 
   // User tapped all tags in the right order.
   if (serialNumbers.length === 0) win();
-};
+}
 
 button.onclick = start;
 
@@ -53,17 +53,19 @@ async function start() {
       }, 200);
     });
   }
-  
+
   // Start listening to tags.
   await reader.scan();
   reader.onreading = onreading;
 }
 
 function lost() {
-  document.getElementById("cards").children.forEach(card => card.style.backgroundColor = 'black');  
+  Array.from(document.getElementById("cards").children).forEach(card => {
+    card.style.backgroundColor = "";
+    card.style.backgroundImage =
+      "url(https://upload.wikimedia.org/wikipedia/commons/c/cb/029-sad-but-relieved-face.svg)";
+  });
   document.getElementById("button").classList.toggle("hidden", false);
-  // document.getElementById("cards").classList.toggle("hidden", true);
-  // document.getElementById("lost").classList.toggle("hidden", false);
   document.getElementById("win").classList.toggle("hidden", true);
   reader.onreading = null;
 }
