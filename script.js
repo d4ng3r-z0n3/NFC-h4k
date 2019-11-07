@@ -13,7 +13,10 @@ const reader = new NDEFReader();
 
 function onreading({ serialNumber }) {
   // User tapped wrong tag.
-  if (serialNumber !== serialNumbers.shift()) {
+  if (
+    serialNumbers.includes(serialNumber) &&
+    serialNumber !== serialNumbers.shift()
+  ) {
     lost();
     return;
   }
@@ -58,7 +61,7 @@ button.onclick = async () => {
   // Start listening to tags.
   await reader.scan();
   reader.onreading = onreading;
-}
+};
 
 function reset() {
   reader.onreading = null;
