@@ -3,7 +3,8 @@ const tagsColors = {
   "04:60:73:0a:bb:5d:80": "green",
   "04:68:6d:0a:bb:5d:81": "blue",
   "04:fa:3a:0a:bb:5d:80": "purple",
-  "04:6c:8e:0a:bb:5d:80": "orange"
+  "04:6c:8e:0a:bb:5d:80": "orange",
+  "04:48:4c:0a:bb:5d:80": "black",
 };
 
 let serialNumbers = [];
@@ -29,17 +30,18 @@ button.onclick = start;
 /* Game logic */
 
 async function start() {
-  document.getElementById("button").classList.toggle("hidden", true);
-  document.getElementById("cards").classList.toggle("hidden", false);
+  reset();
 
   // Create random sequence of tag serial numbers.
   const allSerialNumbers = Object.keys(tagsColors);
+  serialNumbers = [];
   while (allSerialNumbers.length) {
     const randomIndex = Math.floor(Math.random() * allSerialNumbers.length);
     serialNumbers = serialNumbers.concat(
       allSerialNumbers.splice(randomIndex, 1)
     );
   }
+console.log(serialNumbers.map(serialNumber => tagsColors[serialNumber]))
 
   // Show colors to memorize.
   for (const serialNumber of serialNumbers) {
@@ -57,10 +59,18 @@ async function start() {
   reader.onreading = onreading;
 }
 
-function lost() {
+function reset() {
   reader.onreading = null;
   Array.from(document.getElementById("cards").children).forEach(card => {
     card.style.backgroundColor = "";
+    card.style.backgroundImage = "";
+  });
+  document.getElementById("button").classList.toggle("hidden", true);
+}
+
+function lost() {
+  reset();
+  Array.from(document.getElementById("cards").children).forEach(card => {
     card.style.backgroundImage =
       "url(https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Floudly-crying-face.png?v=1573121443006)";
   });
@@ -68,16 +78,12 @@ function lost() {
 }
 
 function win() {
-  reader.onreading = null;
+  reset();
   Array.from(document.getElementById("cards").children).forEach(card => {
-    card.style.backgroundColor = "";
     card.style.backgroundImage =
       "url(https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577)";
   });
-  document.getElementById("button").classList.toggle("hidden", false);
 }
-
-/* Utils */
 
 function setColor(text) {
   const cards = document.getElementById("cards").children;
@@ -86,6 +92,3 @@ function setColor(text) {
   return card;
 }
 
-function log(text) {
-  pre.textContent += `${text}\n`;
-}
