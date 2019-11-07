@@ -6,13 +6,7 @@ const tagsColors = {
   "04:6c:8e:0a:bb:5d:80": "orange"
 };
 
-// Create random sequence of tag serial numbers.
 let serialNumbers = [];
-const allSerialNumbers = Object.keys(tagsColors);
-while (allSerialNumbers.length) {
-  const randomIndex = Math.floor(Math.random() * allSerialNumbers.length);
-  serialNumbers = serialNumbers.concat(allSerialNumbers.splice(randomIndex, 1));
-}
 
 // Start listening to tags.
 const reader = new NDEFReader();
@@ -20,7 +14,7 @@ reader.scan();
 reader.addEventListener("reading", ({ serialNumber }) => {
   // User tapped wrong tag.
   if (serialNumber !== serialNumbers.shift()) {
-    setColor("");
+    lost();
     return;
   }
 
@@ -33,28 +27,51 @@ reader.addEventListener("reading", ({ serialNumber }) => {
   }
 });
 
+button.onclick = start;
+
+/* Game logic */
+
+async function start() {
+  document.getElementById("cards").style.visibility = '';
+  
+  // Create random sequence of tag serial numbers.
+  const allSerialNumbers = Object.keys(tagsColors);
+  while (allSerialNumbers.length) {
+    const randomIndex = Math.floor(Math.random() * allSerialNumbers.length);
+    serialNumbers = serialNumbers.concat(
+      allSerialNumbers.splice(randomIndex, 1)
+    );
+  }
+  // Show colors to memorize.
+  for (const serialNumber of serialNumbers) {
+    const card = setColor(tagsColors[serialNumber]);
+    await new Promise(resolve => {
+      setTimeout(_ => {
+        resolve();
+        card.style.backgroundColor = "";
+      }, 200);
+    });
+  }
+};
+
+function lost() {
+   document.getElementById("cards").style.visibility = 'hidden';
+}
+
+function win() {
+   document.getElementById("cards").style.visibility = 'hidden';
+}
+
 /* Utils */
 
 function setColor(text) {
   const cards = document.getElementById("cards").children;
   const card = cards[Object.values(tagsColors).indexOf(text)];
   card.style.backgroundColor = text;
-  return new Promise(resolve => {
-    setTimeout(_ => {
-      resolve();
-      card.style.backgroundColor = "";
-    }, 200);
-  });
+  return card;
 }
 
 function log(text) {
   pre.textContent += `${text}\n`;
 }
 
-// On button click, reset game and show colors to memorize.
-button.onclick = async _ => {
-  for (const serialNumber of serialNumbers) {
-    await setColor(tagsColors[serialNumber]);
-  }
-  // setColor("gainsboro");
-};
