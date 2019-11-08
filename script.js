@@ -9,6 +9,13 @@ const tagsColors = {
 
 let serialNumbers = [];
 
+const cards = Array.from(document.getElementById("cards").children);
+
+const LOST_IMAGE_URL =
+  "https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Floudly-crying-face.png?v=1573121443006";
+const WIN_IMAGE_URL =
+  "https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577";
+
 const reader = new NDEFReader();
 
 function onreading({ serialNumber }) {
@@ -65,32 +72,29 @@ button.onclick = async () => {
 
 function reset() {
   reader.onreading = null;
-  Array.from(document.getElementById("cards").children).forEach(card => {
+  cards.forEach(card => {
     card.style.backgroundColor = "";
     card.style.backgroundImage = "";
   });
-  document.getElementById("button").classList.toggle("hidden", true);
+  button.classList.toggle("hidden", true);
 }
 
 function lost() {
   reset();
-  Array.from(document.getElementById("cards").children).forEach(card => {
-    card.style.backgroundImage =
-      "url(https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Floudly-crying-face.png?v=1573121443006)";
+  cards.forEach(card => {
+    card.style.backgroundImage = `url(${LOST_IMAGE_URL})`;
   });
-  document.getElementById("button").classList.toggle("hidden", false);
+  button.classList.toggle("hidden", false);
 }
 
 function win() {
   reset();
-  Array.from(document.getElementById("cards").children).forEach(card => {
-    card.style.backgroundImage =
-      "url(https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577)";
+  cards.forEach(card => {
+    card.style.backgroundImage = `url(${WIN_IMAGE_URL})`;
   });
 }
 
 function setColor(text) {
-  const cards = document.getElementById("cards").children;
   const card = cards[Object.values(tagsColors).indexOf(text)];
   card.style.backgroundColor = text;
   return card;
