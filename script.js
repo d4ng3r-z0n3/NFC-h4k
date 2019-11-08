@@ -85,16 +85,17 @@ function win() {
   });
 }
 
-async function setColor(serialNumber, transient = true) {
+async function setColor(serialNumber, transient = false) {
   const color = tagsColors[serialNumber];
   const card = cards[Object.values(tagsColors).indexOf(color)];
   console.log(card);
   card.style.backgroundColor = color;
-  if (persist) {
+  if (transient) {
     await new Promise(resolve => {
       setTimeout(_ => {
         resolve();
         card.style.backgroundColor = "";
       }, 500);
-    }
+    });
+  }
 }
