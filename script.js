@@ -28,11 +28,14 @@ function onreading({ serialNumber }) {
     return;
   }
 
-  // Show tag color user tapped.
-  setColor(tagsColors[serialNumber]);
-
   // User tapped all tags in the right order.
-  if (serialNumbers.length === 0) win();
+  if (serialNumbers.length === 0) {
+    win();
+    return;
+  }
+
+  // Show tag color user tapped.
+  setColor(serialNumber);
 }
 
 button.onclick = async () => {
@@ -48,15 +51,9 @@ button.onclick = async () => {
     );
   }
 
-  if (location.search.includes("god")) {
-    pre.textContent = serialNumbers.map(
-      serialNumber => tagsColors[serialNumber]
-    );
-  }
-
   // Show colors to memorize.
   for (const serialNumber of serialNumbers) {
-    const card = setColor(tagsColors[serialNumber]);
+    const card = setColor(serialNumber);
     await new Promise(resolve => {
       setTimeout(_ => {
         resolve();
@@ -94,8 +91,9 @@ function win() {
   });
 }
 
-function setColor(text) {
-  const card = cards[Object.values(tagsColors).indexOf(text)];
-  card.style.backgroundColor = text;
+function setColor(serialNumber) {
+  const color = tagsColors[serialNumber];
+  const card = cards[Object.values(tagsColors).indexOf(color)];
+  card.style.backgroundColor = color;
   return card;
 }
