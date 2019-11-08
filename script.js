@@ -1,10 +1,10 @@
 const tagsColors = {
-  "04:08:4c:0a:bb:5d:81": "red",
-  "04:60:73:0a:bb:5d:80": "green",
-  "04:68:6d:0a:bb:5d:81": "blue",
-  "04:fa:3a:0a:bb:5d:80": "purple",
-  "04:6c:8e:0a:bb:5d:80": "orange",
-  "04:48:4c:0a:bb:5d:80": "black"
+  "04:08:4c:0a:bb:5d:81": "crimson",
+  "04:60:73:0a:bb:5d:80": "forestgreen",
+  "04:68:6d:0a:bb:5d:81": "dodgerblue",
+  "04:fa:3a:0a:bb:5d:80": "mediumorchid",
+  "04:6c:8e:0a:bb:5d:80": "gold",
+  "04:48:4c:0a:bb:5d:80": "slategray"
 };
 
 let serialNumbers = [];
@@ -57,7 +57,7 @@ button.onclick = async () => {
     await new Promise(resolve => {
       setTimeout(_ => {
         resolve();
-        card.style.backgroundColor = "";
+        // card.style.backgroundColor = "";
       }, 500);
     });
   }
@@ -95,5 +95,6 @@ function setColor(serialNumber) {
   const color = tagsColors[serialNumber];
   const card = cards[Object.values(tagsColors).indexOf(color)];
   card.style.backgroundColor = color;
+  card.style.filter = "brightness(0.5)";
   return card;
 }

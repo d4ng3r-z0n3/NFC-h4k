@@ -49,7 +49,8 @@
         background-repeat: no-repeat;
         background-size: 50%;
         transition: background-color 200ms ease-out;
-/*                 box-shadow: 0 1px 2px grey, inset 0 -6px 0 white, inset 0 6px 0 white; */
+        box-shadow: 0 1px 2px grey, inset -4px -4px 0 white,
+          inset 4px 4px 0 white;
       }
       #button {
         user-select: none;
@@ -80,7 +81,7 @@
       <div></div>
       <div></div>
     </div>
-    <h1 id="button">
+    <h1 id="button" class="hidden">
       start game
     </h1>
     <pre
@@ -88,14 +89,13 @@
     >Powered by <a target="_blank" href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
     <script>
       if ("NDEFReader" in window) {
+        button.classList.toggle("hidden", false);
         import("/script.js");
       } else {
         pre.textContent = "⚠️ Enable Web NFC flag";
       }
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/sw.js").then(() => {
-          console.log("Service Worker Registered");
-        });
+        navigator.serviceWorker.register("/sw.js");
       }
     </script>
   </body>
