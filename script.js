@@ -53,13 +53,7 @@ button.onclick = async () => {
 
   // Show colors to memorize.
   for (const serialNumber of serialNumbers) {
-    const card = setColor(serialNumber);
-    await new Promise(resolve => {
-      setTimeout(_ => {
-        resolve();
-        card.style.backgroundColor = "";
-      }, 500);
-    });
+    await setColor(serialNumber, true /* transient */);
   }
 
   // Start listening to tags.
@@ -91,9 +85,16 @@ function win() {
   });
 }
 
-function setColor(serialNumber) {
+async function setColor(serialNumber, transient = true) {
   const color = tagsColors[serialNumber];
   const card = cards[Object.values(tagsColors).indexOf(color)];
+  console.log(card);
   card.style.backgroundColor = color;
-  return card;
+  if (persist) {
+    await new Promise(resolve => {
+      setTimeout(_ => {
+        resolve();
+        card.style.backgroundColor = "";
+      }, 500);
+    }
 }
