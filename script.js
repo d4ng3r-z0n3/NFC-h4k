@@ -78,6 +78,7 @@ function lost() {
     card.style.backgroundImage = `url(${LOST_IMAGE_URL})`;
   });
   button.classList.toggle("hidden", false);
+  numberOfTimesUserWon = 0;
 }
 
 function win() {
