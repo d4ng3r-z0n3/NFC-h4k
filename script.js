@@ -61,7 +61,6 @@ button.onclick = async () => {
   // Start listening to tags.
   await reader.scan();
   reader.onreading = onreading;
-  win();
 };
 
 function reset() {
@@ -96,12 +95,11 @@ async function setColor(serialNumber, transient = false) {
   console.log(card);
   card.style.backgroundColor = color;
   if (transient) {
-  pre.textContent = 500 - 100 * numberOfTimesUserWon;
     await new Promise(resolve => {
       setTimeout(_ => {
         resolve();
         card.style.backgroundColor = "";
-      }, min(500 - 100 * numberOfTimesUserWon);
+      }, Math.max(100, 500 - 200 * numberOfTimesUserWon));
     });
   }
 }
