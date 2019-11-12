@@ -7,6 +7,8 @@ const tagsColors = {
   "04:fa:3a:0a:bb:5d:80": "mediumorchid"
 };
 
+let numberOfTimesUserWon = 0;
+
 let serialNumbers = [];
 
 const cards = Array.from(document.getElementById("cards").children);
@@ -59,6 +61,7 @@ button.onclick = async () => {
   // Start listening to tags.
   await reader.scan();
   reader.onreading = onreading;
+  win();
 };
 
 function reset() {
@@ -83,6 +86,8 @@ function win() {
   cards.forEach(card => {
     card.style.backgroundImage = `url(${WIN_IMAGE_URL})`;
   });
+  button.classList.toggle("hidden", false);
+  numberOfTimesUserWon++;
 }
 
 async function setColor(serialNumber, transient = false) {
@@ -91,11 +96,12 @@ async function setColor(serialNumber, transient = false) {
   console.log(card);
   card.style.backgroundColor = color;
   if (transient) {
+  pre.textContent = 500 - 100 * numberOfTimesUserWon;
     await new Promise(resolve => {
       setTimeout(_ => {
         resolve();
         card.style.backgroundColor = "";
-      }, 500);
+      }, min(500 - 100 * numberOfTimesUserWon);
     });
   }
 }
