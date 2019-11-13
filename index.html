@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <script>
-      if (window.location.protocol === 'http:') {
-        window.location.href = 'https:' + window.location.href.substring(5);
+      if (window.location.protocol === "http:") {
+        window.location.href = "https:" + window.location.href.substring(5);
       }
     </script>
     <title>Web NFC Demo</title>
@@ -23,14 +23,33 @@
     <style>
       html {
         height: 100%;
-        background-image: linear-gradient(white, lightgrey 15%, lightgrey 65%, white 90%);
+        background-image: linear-gradient(
+          white,
+          lightgrey 15%,
+          lightgrey 65%,
+          white 90%
+        );
       }
+      @media (prefers-color-scheme: dark) {
+        html {
+          background-image: linear-gradient(
+            black,
+            #333 15%,
+            #333 65%,
+            black 90%
+          );
+        }
+        pre {
+          color: white;
+        }
+      }
+
       body {
         margin: 0;
       }
       pre {
         position: absolute;
-        bottom: 48px;
+        bottom: 64px;
         padding: 12px;
         left: 0;
         right: 0;
@@ -93,7 +112,9 @@
       <div></div>
     </div>
     <h1 id="button" class="hidden">start game</h1>
-    <pre id="pre">Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
+    <pre
+      id="pre"
+    >Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
     <script>
       if ("NDEFReader" in window) {
         button.classList.toggle("hidden", false);
