@@ -122,19 +122,21 @@
       } else {
         pre.textContent = "⚠️ Enable Web NFC - chrome://flags/#enable-webnfc";
       }
+
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
       }
-      const mQL = window.matchMedia('(prefers-color-scheme: dark)');
+
+      const mQL = window.matchMedia("(prefers-color-scheme: dark)");
       const meta = document.querySelector('meta[name="theme-color"]');
       mQL.addListener(() => {
         if (mQL.matches) {
-          meta.content = '#35363A';
+          meta.content = "#35363A";
         } else {
-          meta.content = '#fff';
+          meta.content = "#fff";
         }
       });
-      meta.content = mQL.matches ? '#35363A' : '#fff';
+      meta.content = mQL.matches ? "#35363A" : "#fff";
     </script>
   </body>
 </html>
