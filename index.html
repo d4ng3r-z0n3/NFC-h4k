@@ -19,7 +19,7 @@
       rel="icon"
     />
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#fff" />
+    <meta name="theme-color" />
     <style>
       html {
         height: 100%;
@@ -125,6 +125,16 @@
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
       }
+      const mQL = window.matchMedia('(prefers-color-scheme: dark)');
+      const meta = document.querySelector('meta[name="theme-color"]');
+      mQL.addListener(() => {
+        if (mQL.matches) {
+          meta.content = '#35363A';
+        } else {
+          meta.content = '#fff';
+        }
+      });
+      meta.content = mQL.matches ? '#35363A' : '#fff';
     </script>
   </body>
 </html>
