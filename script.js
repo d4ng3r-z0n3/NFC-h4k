@@ -18,7 +18,7 @@ const LOST_IMAGE_URL =
 const WIN_IMAGE_URL =
   "https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577";
 
-const reader = new NDEFReader();
+let reader;
 
 function onreading({ serialNumber }) {
   // User tapped wrong tag.
@@ -41,6 +41,10 @@ function onreading({ serialNumber }) {
 }
 
 button.onclick = async () => {
+  // Start NFC scanning and prompt user if needed.
+  reader = new NDEFReader();
+  await reader.scan();
+
   reset();
 
   // Create random sequence of tag serial numbers.
@@ -59,7 +63,6 @@ button.onclick = async () => {
   }
 
   // Start listening to tags.
-  await reader.scan();
   reader.onreading = onreading;
 };
 
@@ -93,7 +96,6 @@ function win() {
 async function setColor(serialNumber, transient = false) {
   const color = tagsColors[serialNumber];
   const card = cards[Object.values(tagsColors).indexOf(color)];
-  console.log(card);
   card.style.backgroundColor = color;
   if (transient) {
     await new Promise(resolve => {
