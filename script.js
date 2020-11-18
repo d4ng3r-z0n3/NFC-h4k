@@ -19,7 +19,7 @@ const LOST_IMAGE_URL =
 const WIN_IMAGE_URL =
   "https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577";
 
-let reader;
+let ndef;
 
 function onreading({ serialNumber }) {
   // User tapped wrong tag.
@@ -43,8 +43,8 @@ function onreading({ serialNumber }) {
 
 button.onclick = async () => {
   // Start NFC scanning and prompt user if needed.
-  reader = new NDEFReader();
-  await reader.scan();
+  ndef = new NDEFReader();
+  await ndef.scan();
 
   reset();
 
@@ -64,11 +64,11 @@ button.onclick = async () => {
   }
 
   // Start listening to tags.
-  reader.onreading = onreading;
+  ndef.onreading = onreading;
 };
 
 function reset() {
-  reader.onreading = null;
+  ndef.onreading = null;
   cards.forEach(card => {
     card.style.backgroundColor = "";
     card.style.backgroundImage = "";
