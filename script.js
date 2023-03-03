@@ -1,11 +1,11 @@
 // TODO: Update with serialNumbers from your own NFC tags: https://googlechrome.github.io/samples/web-nfc/
 const tagsColors = {
-  "04:08:4c:0a:bb:5d:81": "crimson",
-  "04:60:73:0a:bb:5d:80": "forestgreen",
-  "04:68:6d:0a:bb:5d:81": "dodgerblue",
-  "04:48:4c:0a:bb:5d:80": "slategray",
-  "04:6c:8e:0a:bb:5d:80": "gold",
-  "04:fa:3a:0a:bb:5d:80": "mediumorchid"
+  "04:a3:bd:69:73:00:00": "crimson",
+  "04:d5:14:69:73:00:00": "forestgreen",
+  "04:e4:5f:69:73:00:00": "dodgerblue",
+  "04:19:50:69:73:00:00": "slategray",
+  "04:e7:8a:69:73:00:00": "gold",
+  "04:cd:2f:6a:73:00:00": "mediumorchid"
 };
 
 let numberOfTimesUserWon = 0;
