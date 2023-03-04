@@ -82,6 +82,12 @@
       .hidden {
         display: none !important;
       }
+      }
+    .serial:onhover {
+        background: url("/files/060af1d84891a30515d5e2f026d8b249/card-back.jpg") no-repeat;
+        -webkit-filter: blur(36px); /* Chrome, Safari, Opera */
+        filter: blur(36px);
+      }
     </style>
   </head>
   <body>
@@ -92,15 +98,19 @@
       <div></div>
       <div></div>
       <div></div>
-    </div><h3><center>
+    </div>
+  <h3>
+   <center>
+      <div class="serial">
    <br>"04:a3:bd:69:73:00:00": "Red"
    <br>"04:d5:14:69:73:00:00": "Green"
    <br>"04:e4:5f:69:73:00:00": "Blue"
    <br>"04:19:50:69:73:00:00": "Grey"
    <br>"04:e7:8a:69:73:00:00": "Yellow"
    <br>"04:cd:2f:69:73:00:00": "Purple"
-    </h3>
-    </center>
+     </div>
+       </h3>
+   </center>
     <h1 id="button" class="hidden">h4k</h1>
     <pre
       id="pre"
