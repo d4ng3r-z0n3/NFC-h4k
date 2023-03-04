@@ -91,7 +91,7 @@
     </style>
   </head>
   <body>
-    <div class="screen-container"><div class="screen-wrapper"><div class="screen-wrapper wobbley"><div class="screen-wrapper"><div id="screen">
+   <ul class="scanlines">
     <div id="cards">
       <div></div>
       <div></div>
@@ -114,6 +114,7 @@
     <pre
       id="pre"
     ></pre>
+     </ul>      
     <script>
       if ("NDEFReader" in window) {
         button.classList.toggle("hidden", false);
@@ -138,8 +139,5 @@
       });
       meta.content = mQL.matches ? "#35363A" : "#fff";
     </script>
-      </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js'></script><script  src="./script.js"></script>
   </body>
 </html>
