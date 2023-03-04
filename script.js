@@ -17,7 +17,7 @@ const cards = Array.from(document.getElementById("cards").children);
 const LOST_IMAGE_URL =
   "https://cdn.glitch.global/baf30add-d5f2-4269-98d7-2ebe359f2a3e/a26fc0a9-d6cf-4b67-9100-2227eedddb62_loudly-crying-face.png?v=1677901427666";
 const WIN_IMAGE_URL =
-  "https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fface-with-party-horn-and-party-hat.png?v=1573121623577";
+  "https://cdn.glitch.global/baf30add-d5f2-4269-98d7-2ebe359f2a3e/sd.png?v=1677901841048";
 
 let ndef;
 
