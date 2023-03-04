@@ -28,12 +28,12 @@
         background: linear-gradient(black, forestgreen)        ;
       }
       body {
-        margin: 0px;
+        margin: 0;
       }
       pre {
         position: AUTO;
         bottom: 64px;
-        padding: 0;
+        padding: 12px;
         left: 0;
         right: 0;
         margin: 0;
@@ -45,11 +45,11 @@
         color: #4c8bf5;
       }
       #cards {
-        margin: 2px auto 0 auto;
+        margin: 24px auto 0 auto;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr;
         display: grid;
-        gap: 5px;
+        gap: 15px;
         width: auto;
         height: 295px;
         overflow: hidden;
@@ -72,7 +72,7 @@
         text-align: center;
         background-color: #4a4;
         font-family: "Orbitron";
-        color: limegreen;
+        color: black;
         width: 100px;
         padding: 12px 0 18px 0;
         font-weight: normal;
@@ -82,16 +82,9 @@
       .hidden {
         display: none !important;
       }
-      }
-    .serial:onhover {
-        background: url("/files/060af1d84891a30515d5e2f026d8b249/card-back.jpg") no-repeat;
-        -webkit-filter: blur(36px); /* Chrome, Safari, Opera */
-        filter: blur(36px);
-      }
     </style>
   </head>
   <body>
-   <ul class="scanlines">
     <div id="cards">
       <div></div>
       <div></div>
@@ -110,11 +103,10 @@
    <br>"04:cd:2f:69:73:00:00": "Purple"
    </center>
     </h3>
-    <h1 id="button" class="hidden">h4k</h1>
+    
     <pre
       id="pre"
-    ></pre>
-     </ul>      
+    ></pre>     
     <script>
       if ("NDEFReader" in window) {
         button.classList.toggle("hidden", false);
